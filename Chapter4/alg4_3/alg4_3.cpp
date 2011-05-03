@@ -6,14 +6,10 @@
 #include "../main/chap4.h"
 
 
-int chainRule(std::set<char*> Var, char* currVar, char* production);
-
+int chainRule(std::set<char*> var, char* currVar, char* production);
 std::set<char*> deriveChainRule(char* variable, std::set<char*>* grammer);
-
 void updateGrammer( std::set<char*> chainRules, std::set<char*>* grammer, char* curVar);
-
 void addNewRule( std::set<char*>& rules, char* rule, char* curVar);
-
 void removeOldChain( std::set<char*>* grammer );
 
 using namespace std;
@@ -46,14 +42,9 @@ void alg4_3(char* pathIn, char* pathOut){
 	
 	outputGrammer(pathOut, grammer);
 
-	//grammer[3].clear();
-	//grammer[2].clear();
-	//grammer[1].clear();
-	//grammer[0].clear();
 }
 
 // 4.3.1
-// Returns a Set, make sure you FREE IT
 set<char*> deriveChainRule(char* variable, set<char*>* grammer){
 	set<char*> chainX;
 	set<char*> prevSet;
@@ -82,7 +73,6 @@ set<char*> deriveChainRule(char* variable, set<char*>* grammer){
 
 	
 	return chainX;
-
 }
 
 
