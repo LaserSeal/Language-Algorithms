@@ -251,7 +251,27 @@ int isVariable(char* var){
 
 
 
+char* flattenProductVector(vector<char*> splitRule){
 
+	int size = 0;
+	
+	if( (size = splitRule.size()) > 1 ){
+		char* flatRule = new char[MAX_RULE_SIZE+1];
+		
+		strncpy(flatRule, splitRule[0], strlen(splitRule[0])+1);
+		strncat(flatRule, " ", 1);
+		for( int i = 1; i < size; i++){
+			strncat(flatRule, splitRule[i], MAX_RULE_SIZE);
+		}
+		return flatRule;
+	}
+	else{
+		return splitRule[0];
+	}
+	
+
+
+}
 vector<char*> splitProduction(char* production){
 
 	vector<char*> proVec;

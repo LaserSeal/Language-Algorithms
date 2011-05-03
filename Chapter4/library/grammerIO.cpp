@@ -117,7 +117,7 @@ void parseGrammer( char* path, set<char*>* grammer ){
 
 void parseLine( set<char*>* grammer, char* line){
 	char* var = getVariable(grammer[VARIABLES], line);
-	if( *var ){
+	if( var ){
 		getAlphabet(grammer[ALPHABET], line);
 		getRules(grammer[RULES], line, var);
 	}
@@ -128,8 +128,13 @@ void parseLine( set<char*>* grammer, char* line){
 // Stores the var the grammer set and also returns a pointer to the var thats found
 char* getVariable( set<char*>& variables, char* line){
 
-	char* newVar = insertVariable(variables, line);
-	return newVar;	
+	char* newVar;
+
+	if( isVariable(line)){
+	 	newVar = insertVariable(variables, line);
+		return newVar;
+	}
+	return NULL;	
 }
 
 

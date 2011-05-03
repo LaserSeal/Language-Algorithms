@@ -44,6 +44,9 @@ bool isLowChar( char letter );
 // Both of these return 0 if no terminal or var is found
 // otherwise it returns the size of the term or var in the 
 // char*
+
+
+/*NULL_CHAR IS NOT A TERMINAL, NEED TO FIX THIS */
 int isTerminal( char* term );
 int isVariable( char* var );
 
@@ -54,3 +57,4 @@ int isVariable( char* var );
 // Splits a rule up by terminals and varibles
 // and puts it into a vector
 std::vector<char*> splitProduction(char* production);
+char* flattenProductVector(std::vector<char*> splitRule);
