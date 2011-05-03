@@ -1,4 +1,4 @@
-OBJS = $(MAIN).o alg4_1.o alg4_2.o alg4_3.o alg4_4_2.o alg4_4_4.o alg4_5.o lib.o grammerIO.o
+OBJS = $(MAIN).o alg4_1.o alg4_2.o alg4_3.o alg4_4_2.o alg4_4_4.o alg4_5.o alg4_6.o lib.o grammerIO.o
 MAIN = main
 
 all: remove compile
@@ -28,6 +28,9 @@ alg4_4_4.o:
 
 alg4_5.o:
 	g++ -c ../alg4_5/alg4_5.cpp
+
+alg4_6.o:
+	g++ -c ../alg4_6/alg4_6.cpp
 
 lib.o:
 	g++ -c ../library/lib.cpp

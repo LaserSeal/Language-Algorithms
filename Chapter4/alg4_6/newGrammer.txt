@@ -1,0 +1,10 @@
+S -> a | A0T1
+C -> C0C | c
+A0 -> a
+B -> B0C0 | B0T2
+C0 -> c
+A -> A0A | a
+T0 -> BC
+B0 -> b
+T1 -> AT0
+T2 -> C0B

@@ -14,7 +14,7 @@ int main(){
 	int i = 0;
 
 	while(i++ < 10){
-		alg4_3(gramOutA, gramOutB);
+		alg4_6(gramOutA, gramOutB, "aaba");
 	}
 
 /*
