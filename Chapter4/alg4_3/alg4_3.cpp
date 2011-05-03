@@ -107,7 +107,7 @@ void updateGrammer( set<char*> chainX, set<char*>* grammer, char* curVar){
 
 void addNewRule(set<char*>& rules, char* rule, char* curVar){
 	char* newRule = new char[MAX_RULE_SIZE+1];
-
+	
 	strncpy(newRule, curVar, MAX_VAR_SIZE);
 	strncat(newRule, (getRulePtr(rule)-1), MAX_RULE_SIZE);
 	
@@ -119,19 +119,26 @@ void addNewRule(set<char*>& rules, char* rule, char* curVar){
 		delete newRule;
 	}
 }
-
+	
 // This just goes through and removes the first chain rules in the gammer //
 void removeOldChain( set<char*>* grammer){
 
 	set<char*>::iterator itRules;
 	set<char*>::iterator itTmp;
-
-	for( itRules = grammer[RULES].begin(); itRules != grammer[RULES].end(); itRules++){
-		if( member( grammer[VARIABLES], getRulePtr( *itRules ) ) ){
-				itTmp = itRules;
-				itRules++;
-				grammer[RULES].erase(*itTmp);
+	
+	itRules = grammer[RULES].begin();
+	
+	while(itRules != grammer[RULES].end()){
+		if( member( grammer[VARIABLES], getRulePtr(*itRules)) ){
+			itTmp = itRules;
+			++itRules;
+			grammer[RULES].erase(*itTmp);
 		}
+		else{
+			++itRules;
+		}
+
+
 	}
 }
 
