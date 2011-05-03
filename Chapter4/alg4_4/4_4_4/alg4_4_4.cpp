@@ -22,6 +22,9 @@ void alg4_4_4(char* pathIn, char* pathOut){
 }
 
 /* Algorithm 4.4.4 - Page 119
+
+input: context-free grammer G = (V, E, P, S)
+
 1. REACH := {S}
 2. PREV := {}
 3. repeat

@@ -206,6 +206,18 @@ void removeOldNullRules(set<char*>& rules, char* start){
 }
 
 // ALGORITHM 4.2.1 (Page 108)
+/*
+
+input: context-free grammer G = (V, E, P, S)
+
+1. NULL := { A | A -> Lamda (exist in) P }
+2. repeat
+	2.1. PREV := NULL
+	2.2. for each variable A (exist in) V do
+		if there is an A rule A -> w and w (exist in) PREV*, then
+			NULL := NULL U {A}
+until NULL = PREV
+*/
 set<char*> buildNullSet(set<char*>* grammer){
 	
 	set<char*> nullSet = initNullSet(grammer);
@@ -214,7 +226,8 @@ set<char*> buildNullSet(set<char*>* grammer){
 	set<char*>::iterator itVar;
 	set<char*>::iterator itPro;
 
-	while( !compareSets( nullSet, prevSet ) ){
+	//repeat
+	do{
 		// PREV := NULL
 		unionSet( prevSet, nullSet );		
 		// for each A (exist in) V
@@ -231,7 +244,7 @@ set<char*> buildNullSet(set<char*>* grammer){
 				}
 			}
 		}
-	}
+	}while( !compareSets( nullSet, prevSet ) );
 	return nullSet;
 }
 

@@ -45,6 +45,20 @@ void alg4_3(char* pathIn, char* pathOut){
 }
 
 // 4.3.1
+/*
+
+input: context-free grammer G = (V, E, P, S)
+
+1. CHAIN(A) := {A}
+2. PREV := CHAIN(A)
+3. repeat
+	3.1. NEW := CHAIN(A) - PREV
+	3.2. PREV := CHAIN(A)
+	3.3. for each variable B (exist in) NEW do
+		for each rule B -> C do
+			CHAIN(A) := CHAIN(A) U {C}
+until CHAIN(A) = PREV
+*/
 set<char*> deriveChainRule(char* variable, set<char*>* grammer){
 	set<char*> chainX;
 	set<char*> prevSet;

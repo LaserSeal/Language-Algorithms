@@ -12,12 +12,6 @@ std::set<char*> getReachable( std::set<char*>* grammer );
 
 using namespace std;
 /*int main(){
-
-
-	alg4_4_2("../../grammers/grammerA.txt", "newGrammer.txt");	
-	alg4_4_2("../../grammers/grammerA.txt", "newGrammer.txt");	
-	alg4_4_2("grammer.txt", "newGrammer.txt");	
-	alg4_4_2("grammer.txt", "newGrammer.txt");	
 }*/
 
 
@@ -56,11 +50,13 @@ void removeUselessVar( set<char*> termSet, set<char*>* grammer){
 
 /* Algorithm 4.4.2 (Page 117)
 
-1. TERM := {A | there is a rule A -> w (exist in) P with w (exist in) ALPHABET*}
+input: context-free grammer G = (V, E, P, S)
+
+1. TERM := {A | there is a rule A -> w (exist in) P with w (exist in) E*}
 2. repeat
 	2.1. PREV := TERM
 	2.2. for each variable A (exist in) V do
-		if there is an A rule A -> w and w (exist in) (PREV U ALPHABET)* then
+		if there is an A rule A -> w and w (exist in) (PREV U E)* then
 			TERM := TERM U {A}
 until PREV = TERM
 
