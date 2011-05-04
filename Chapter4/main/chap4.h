@@ -21,7 +21,7 @@ void alg4_4_4(char* pathIn, char* pathOut);
 void alg4_5(char* pathIn, char* pathOut);
 
 // CYK Algorithm
-void alg4_6(char* pathIn, char* pathOut, char* input);
+void alg4_6(char* pathIn, char* pathOut, const char* input);
 
 
 
