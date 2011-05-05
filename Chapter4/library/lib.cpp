@@ -272,19 +272,15 @@ char* flattenProductVector(vector<char*> splitRule){
 
 
 }
+
+// Takes a production and put it into a vector
+// The production variable is stored in [0], so if you want to iterate through the rules start from [1] to [size()]
+// #### Will also turn just a rule into a vector #####
 vector<char*> splitProduction(char* production){
 
 	vector<char*> proVec;
 	char* newEntry;// = new char[MAX_RULE_SIZE+1];
 	int size;
-/*
-	size = isVariable(production);
-	strncpy(newEntry, prodction, size);
-	*(newEntry+size) = '\0';
-	ruleSplit	
-*/		
-	// Skips the space in production
-
 
 	while( (size = isVariable(production)) || (size = isTerminal(production)) ){
 		newEntry = new char[MAX_RULE_SIZE+1];
@@ -292,6 +288,9 @@ vector<char*> splitProduction(char* production){
 		*(newEntry+size) = '\0';
 		proVec.push_back(newEntry);
 		production += size;
+		
+		// This is just for the space sperating the 
+		// variable form the rule.
 		while( *production == ' ' ){
 			production++;
 		}
@@ -300,6 +299,5 @@ vector<char*> splitProduction(char* production){
 
 	return proVec;
 }
-
 
 

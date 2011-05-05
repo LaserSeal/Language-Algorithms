@@ -1,10 +1,10 @@
 #include "lib.h"
 #include "gramIO.h"
 
-char** CYKalg(std::set<char*>* grammer, const char* input); 
+void CYKalg(std::set<char*>* grammer, char* input); 
 
 using namespace std;
-void alg4_6(char* pathIn, char* pathOut, const char* input){
+void alg4_6(char* pathIn, char* pathOut, char* input){
 	set<char*> grammer[4];
 	parseGrammer(pathIn, grammer);
 	
@@ -29,7 +29,7 @@ input: context-free grammer G = (V, E, P, S)
 2. for i = 1 to n
 	for each variable A, if there is a rule A -> xi then Xi,i := Xi,i U {A}
 3. for step = 2 to n
-	3.1. for i = 1 ro n - step + 1
+	3.1. for i = 1 to n - step + 1
 		3.1.1 for k = i to i + step - 2
 			if there are variables B (exist in) Xi,k , C (exist in) Xk+1, i+step-1, and
 			a rule A -> BC, then Xi,i+step-1 := Xi,i+step-1 U{A}
@@ -37,20 +37,33 @@ input: context-free grammer G = (V, E, P, S)
 
 */
 
-// RETURNS A CHAR** FREE ME
-char** CYKalg(set<char*>* grammer, const char* input){
-	
+void CYKalg(set<char*>* grammer, char* input){
+
+
+	vector<char*> splitInput = splitProduction(input);
+
+	set<char*>::iterator itPro;	
 	int n = strlen(input);
-	char** X = new char*[n];
 	
-	for( int i = 0; i < n; i++)
-		X[i] = new char[n];
 
-	displayGrammer(grammer);
-
+	for(int i = 1; i < n; i++){
+		for( itPro = grammer[RULES].begin(); itPro != grammer[RULES].end(); itPro++){
+			if( strncmp( getRulePtr(*itPro), splitInput[i], MAX_RULE_SIZE) == 0 ){
+				// Figure out how you are going to store dignal matrix
+			}
+		}
+	}
 	
 	cout << input << endl;
 
-
-	return NULL;
 }
+
+/*
+void printDigMatrix(){
+
+
+	//for(int i = 0; i <
+
+
+}
+*/
