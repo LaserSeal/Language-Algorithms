@@ -56,9 +56,13 @@ void CYKalg(set<char*>* grammer, char* input){
 
 	vector<char*> splitInput = splitProduction(input);// splitProduction(input);	
 	int n = splitInput.size();
-	vector<vector<vector<char*> > > X = init2DMatrix(n);
 	set<char*>::iterator itPro;	
 
+	// 1. initialize all Xi,j to {}
+	vector<vector<vector<char*> > > X = init2DMatrix(n);
+
+	// 2. for i = 1 to n
+	// 	for each variable A, if there is a rule A -> xi then Xi,i := Xi,i U {A}
 	for(int i = 0; i < n; i++){
 		for( itPro = grammer[RULES].begin(); itPro != grammer[RULES].end(); itPro++){
 			if( strncmp( getRulePtr(*itPro), splitInput[i], MAX_RULE_SIZE) == 0 ){
@@ -66,6 +70,21 @@ void CYKalg(set<char*>* grammer, char* input){
 			}
 		}
 	}
+
+	//3.
+	for( int step = 1; step < n; step++){
+		for( int i = 0; i < (n - step + 1); i++){
+			for( int k = i; k < (i + step - 2 ); k++){
+				if( X[i][k].size() > 0 && X[k+1][i+step-1].size() > 0)
+					cout << X[i][k][0] << endl;
+				else
+					cout << "{}" << endl;
+				cout << "step: " << step << " | i: " << i << " | k: " << k << endl;
+			}
+		}
+
+	}
+
 	printDiagMatrix(X, n);
 
 }
@@ -74,21 +93,12 @@ void CYKalg(set<char*>* grammer, char* input){
 
 vector<vector<vector<char*> > > init2DMatrix(int n){
 
-
 	vector<vector<vector<char*> > > X;
-	
 
-
-		X.resize(n);
-		for( int i = 0; i < n; i++){
-			X[i].resize(n);
-		//	for( int j = 0; j < n; j++){
-				//X[i][j].resize(1);
-			//	X[i][j].push_back("0");	
-		//	}
-		}
-
-	//printDiagMatrix(X,n);
+	X.resize(n);
+	for( int i = 0; i < n; i++){
+		X[i].resize(n);
+	}
 	
 	return X;
 }
@@ -96,13 +106,9 @@ vector<vector<vector<char*> > > init2DMatrix(int n){
 
 void printDiagMatrix( vector<vector<vector<char*> > > X, int n){
 
-	//cout << X[0][0][0] << endl;
-	
-
-
 	for(int i = 0; i < n; i++){
 		for(int j = 0; j <= i; j++){
-			cout << "{";//  X[i][j].size() << endl;
+			cout << "{";
 			for(int k = 0; k < X[i][j].size(); k++){	
 				cout << X[i][j][k];
 				if( k < (X[i][j].size()-1)){
@@ -113,26 +119,4 @@ void printDiagMatrix( vector<vector<vector<char*> > > X, int n){
 		}
 		cout << endl;
 	}
-
-
-//	cout << n << "--"<< endl;
-/*
-	for(int i = 0; i < n; i++){
-		for( int j = 0; j <= i; j++){
-	
-			cout << X[i][j].size() << endl;
-			for( int k = 0; k < X[i][j].size(); k++){
-				//if( j < i ){
-			//		cout << '-' << '\t';
-				//}
-				//else{
-					//cout << X[i][j][k] << ',';	
-				//}
-			}
-
-		}
-		cout << endl;
-	}*/
-
-
 }
