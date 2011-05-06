@@ -58,14 +58,14 @@ void CYKalg(set<char*>* grammer, char* input){
 	int n = splitInput.size();
 	vector<vector<vector<char*> > > X = init2DMatrix(n);
 	set<char*>::iterator itPro;	
-/*
+
 	for(int i = 0; i < n; i++){
 		for( itPro = grammer[RULES].begin(); itPro != grammer[RULES].end(); itPro++){
 			if( strncmp( getRulePtr(*itPro), splitInput[i], MAX_RULE_SIZE) == 0 ){
-				strcpy(X[i][i], getVariable(*itPro));				
+				X[i][i].push_back( getVariable(*itPro));				
 			}
 		}
-	}*/
+	}
 	printDiagMatrix(X, n);
 
 }
@@ -82,11 +82,10 @@ vector<vector<vector<char*> > > init2DMatrix(int n){
 		X.resize(n);
 		for( int i = 0; i < n; i++){
 			X[i].resize(n);
-			for( int j = 0; j < n; j++){
+		//	for( int j = 0; j < n; j++){
 				//X[i][j].resize(1);
-				X[i][j].push_back("0");	
-				X[i][j].push_back("1");	
-			}
+			//	X[i][j].push_back("0");	
+		//	}
 		}
 
 	//printDiagMatrix(X,n);
@@ -106,7 +105,7 @@ void printDiagMatrix( vector<vector<vector<char*> > > X, int n){
 			cout << "{";//  X[i][j].size() << endl;
 			for(int k = 0; k < X[i][j].size(); k++){	
 				cout << X[i][j][k];
-				if( k > 0){
+				if( k < (X[i][j].size()-1)){
 					cout << ",";
 				}
 			}
