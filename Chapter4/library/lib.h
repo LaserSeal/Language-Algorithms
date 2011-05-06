@@ -28,6 +28,9 @@ bool compareSets( std::set<char*> setA, std::set<char*> setB );
 // returns a pointer the rule of the production
 char* getRulePtr(char* production);
 
+// RETURNS A NEW CHAR[MAX_VAR_SIZE+1];	
+char* getVariable(char* production);
+
 // Checks if a variable is equal to one in a production rule
 int varEqual(char* var, char* proVar);
 

@@ -165,13 +165,28 @@ void displaySet(set<char*> setA){
 
 }
 
+
+// Takes the variable from a prodcution and makes a new char*
+// RETURNS A DYNAMICLY ALLOCATED POINTER
+char* getVariable(char* production){
+	
+	int size = 0;
+	char* newVar;
+	
+	if( (size = isVariable(production)) ){
+		newVar = new char[MAX_VAR_SIZE+1];
+		strncpy(newVar, production, size+1);
+		return newVar;
+	}
+	return NULL;
+}
+
 // Takes a production and returns a pointer to the start of the rule
 // Eample: input with "S Aab" returns "Aab"
 char* getRulePtr(char* production){
 	while(*(production) && *(production++) != ' ');
 	return production;
 }
-
 
 // takes a var and sees if its the same as a production  var
 int varEqual(char* var, char* proVar){
@@ -223,7 +238,7 @@ bool isLowChar( char letter ){
 int isTerminal(char* term){
         //checks if the first char is a letter
         int termSize = 0;
-        if( isLowChar( *term ) || strcmp(term, NULL_CHAR) == 0 ){
+        if( isLowChar( *term++ ) || strcmp(term, NULL_CHAR) == 0 ){
                 termSize++;
                 while( isDigit( *term++ ) ){
                         termSize++;
@@ -273,6 +288,7 @@ char* flattenProductVector(vector<char*> splitRule){
 
 }
 
+
 // Takes a production and put it into a vector
 // The production variable is stored in [0], so if you want to iterate through the rules start from [1] to [size()]
 // #### Will also turn just a rule into a vector #####
@@ -282,13 +298,12 @@ vector<char*> splitProduction(char* production){
 	char* newEntry;// = new char[MAX_RULE_SIZE+1];
 	int size;
 
-	while( (size = isVariable(production)) || (size = isTerminal(production)) ){
+	while( (size = isVariable(production)) || (size = isTerminal(production))){
 		newEntry = new char[MAX_RULE_SIZE+1];
 		strncpy(newEntry, production, size);
 		*(newEntry+size) = '\0';
 		proVec.push_back(newEntry);
-		production += size;
-		
+		production += size;		
 		// This is just for the space sperating the 
 		// variable form the rule.
 		while( *production == ' ' ){

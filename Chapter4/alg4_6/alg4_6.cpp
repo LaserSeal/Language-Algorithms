@@ -1,13 +1,28 @@
 #include "lib.h"
 #include "gramIO.h"
 
+#define MAX_NUM_VAR 8
+
 void CYKalg(std::set<char*>* grammer, char* input); 
+std::vector<std::vector<std::vector<char*> > > init2DMatrix(int n);
+void printDiagMatrix( std::vector<std::vector<std::vector<char*> > >, int n);
+
+
 
 using namespace std;
 void alg4_6(char* pathIn, char* pathOut, char* input){
 	set<char*> grammer[4];
 	parseGrammer(pathIn, grammer);
+
+/*	test.resize(1);
+	test[0].resize(1);
+	test[0][0].reserve(4);
+	test[0][0].insert("hello");*/
+
+
+	//test.push_back("test");
 	
+	//cout << "--" << endl;	
 	CYKalg(grammer, input);
 
 	outputGrammer(pathOut, grammer);
@@ -39,31 +54,86 @@ input: context-free grammer G = (V, E, P, S)
 
 void CYKalg(set<char*>* grammer, char* input){
 
-
-	vector<char*> splitInput = splitProduction(input);
-
+	vector<char*> splitInput = splitProduction(input);// splitProduction(input);	
+	int n = splitInput.size();
+	vector<vector<vector<char*> > > X = init2DMatrix(n);
 	set<char*>::iterator itPro;	
-	int n = strlen(input);
-	
-
-	for(int i = 1; i < n; i++){
+/*
+	for(int i = 0; i < n; i++){
 		for( itPro = grammer[RULES].begin(); itPro != grammer[RULES].end(); itPro++){
 			if( strncmp( getRulePtr(*itPro), splitInput[i], MAX_RULE_SIZE) == 0 ){
-				// Figure out how you are going to store dignal matrix
+				strcpy(X[i][i], getVariable(*itPro));				
 			}
 		}
-	}
+	}*/
+	printDiagMatrix(X, n);
+
+}
+
+
+
+vector<vector<vector<char*> > > init2DMatrix(int n){
+
+
+	vector<vector<vector<char*> > > X;
 	
-	cout << input << endl;
 
+
+		X.resize(n);
+		for( int i = 0; i < n; i++){
+			X[i].resize(n);
+			for( int j = 0; j < n; j++){
+				//X[i][j].resize(1);
+				X[i][j].push_back("0");	
+				X[i][j].push_back("1");	
+			}
+		}
+
+	//printDiagMatrix(X,n);
+	
+	return X;
 }
 
+
+void printDiagMatrix( vector<vector<vector<char*> > > X, int n){
+
+	//cout << X[0][0][0] << endl;
+	
+
+
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j <= i; j++){
+			cout << "{";//  X[i][j].size() << endl;
+			for(int k = 0; k < X[i][j].size(); k++){	
+				cout << X[i][j][k];
+				if( k > 0){
+					cout << ",";
+				}
+			}
+			cout << "}\t";
+		}
+		cout << endl;
+	}
+
+
+//	cout << n << "--"<< endl;
 /*
-void printDigMatrix(){
+	for(int i = 0; i < n; i++){
+		for( int j = 0; j <= i; j++){
+	
+			cout << X[i][j].size() << endl;
+			for( int k = 0; k < X[i][j].size(); k++){
+				//if( j < i ){
+			//		cout << '-' << '\t';
+				//}
+				//else{
+					//cout << X[i][j][k] << ',';	
+				//}
+			}
 
-
-	//for(int i = 0; i <
+		}
+		cout << endl;
+	}*/
 
 
 }
-*/
