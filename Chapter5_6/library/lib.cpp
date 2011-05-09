@@ -146,34 +146,93 @@ bool isLowChar( char letter ){
 	return false;
 }
 
+
+int isState(char* state){
+	int stateSize = 0;
+	if( *state++ == 'q' ){
+		stateSize++;
+		while( isDigit( *state++ ) ){
+			stateSize++;
+		}
+	}
+
+	return stateSize;
+}
+
+
 // return the size of the term or 0 if its false
 int isTerminal(char* term){
         //checks if the first char is a letter
         int termSize = 0;
-        if( isLowChar( *term++ ) || strcmp(term, NULL_CHAR) == 0 ){
+        if( isLowChar( *term++ ) ){
                 termSize++;
                 while( isDigit( *term++ ) ){
                         termSize++;
                 }
-                return termSize;
         }
         return termSize;
 }
 
 
-// returns the size of the var in char*.
-// If it cannot it returns 0 ( varSize == 0 )
-int isVariable(char* var){
-	int varSize = 0;
-	if( isUppChar( *var++ ) ){
-		varSize++;
-		while( isDigit( *var++ )){
-			varSize++;
-		}
-		return varSize;
-	}
-	return varSize;
-}
 
+
+
+vector<char*> splitTransition(char* transition){
+	
+	vector<char*> vecTransition;
+	char* newChar;
+	int size;
+	
+
+	
+	while( *transition != '(' && *transition ){
+		transition++;
+	}	
+
+
+
+	// finds the first transition
+	while( !(size = isState(transition)) && *transition ){
+		transition++;		
+	}
+
+
+	if( size ){
+		newChar = new char[size+1];
+		strncpy(newChar, transition, size);
+		*(newChar+size) = '\0';
+		vecTransition.push_back(newChar);
+		transition+=size;
+	}
+
+
+	while( !(size = isTerminal(transition)) && *transition){
+		transition++;
+	}
+
+	
+	if( size ){
+		newChar = new char[size+1];
+		strncpy(newChar, transition, size);
+		*(newChar+size) = '\0';
+		vecTransition.push_back(newChar);
+		transition+=size;
+	}
+
+
+	while( !(size = isState(transition)) && *transition ){
+		transition++;		
+	}
+
+	if( size ){
+		newChar = new char[size+1];
+		strncpy(newChar, transition, size);
+		*(newChar+size) = '\0';
+		vecTransition.push_back(newChar);
+		transition+=size;
+	}
+	
+	return vecTransition;
+}
 
 

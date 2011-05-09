@@ -2,4 +2,5 @@ d(q0, a) = q1
 d(q0, b) = q0
 d(q1, a) = q1
 d(q1, b) = q0
-F{q1}
+
+F{q1,q2,q5}

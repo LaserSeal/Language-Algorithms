@@ -42,6 +42,13 @@ int main(){
 
 	parseFiniteState("dfa.txt", finiteState); 	
 
+	vector<char*> test = splitTransition(*(finiteState[TRANSITIONS].begin()));
+	
+
+	cout << test[0] << endl;
+	cout << test[1] << endl;
+	cout << test[2] << endl;
+		
 }
 
 
@@ -61,6 +68,14 @@ void parseFiniteState(char* path, set<char*>* finiteState){
 		line = strtok_r(NULL, "\n", &p);
 	}
 
+
+	displaySet(finiteState[STATES]);
+	cout << "----" << endl;
+	displaySet(finiteState[ALPHABET]);
+	cout << "----" << endl;
+	displaySet(finiteState[TRANSITIONS]);
+	cout << "----" << endl;
+	displaySet(finiteState[FINAL]);
 	
 }
 
@@ -69,14 +84,14 @@ void parseLine(char* line, set<char*>* finiteState){
 
 	//cout << line << "--" << endl;
 	if( getTransitions(line, finiteState[TRANSITIONS])){
-		//getStates(line, finiteState[STATES]);
-		//getAlhpabet(line, finiteState[ALPHABET]);
+		getStates(line, finiteState[STATES]);
+		getAlphabet(line, finiteState[ALPHABET]);
 	}
 	else{
 		getFinalStates(line, finiteState[FINAL]);
 	}
 
-	displaySet(finiteState[TRANSITIONS]);
+
 
 }
 
@@ -84,40 +99,85 @@ void parseLine(char* line, set<char*>* finiteState){
 
 
 void getStates(char* line, std::set<char*>& states){
+	
+	int size;
+	char* newState;
+		
+	while( *line ){
+
+		if( (size = isState(line)) ){
+			newState = new char[size+1];
+			strncpy(newState, line, size);
+			*(newState+size) = '\0';
+			insertIntoSet(states, newState);
+			line+=size;
+		}
+		else{
+			line++;
+		}
+
+	}
 
 
 }
+
+
 void getAlphabet(char* line, std::set<char*>& alphabet){
 
+	int size;
+	char* newAlph;
 
+	while(*line != ',' && *line){ line++; }
+
+	while( *line ){
+		if( *line != 'q' && (size = isTerminal(line)) ){
+			newAlph = new char[size+1];
+			strncpy(newAlph, line, size);
+			*(newAlph+size) = '\0';
+			insertIntoSet(alphabet, newAlph);
+			line+=size;	
+		}
+		else{
+			line++;
+		}
+	}
 
 }
 
 bool getTransitions(char* line, std::set<char*>& transitions){
 	
 	char* newTran = new char[MAX_TRAN_SIZE+1];
-
 	
-	if( *line != 'd' ){
+	if( *line != 'd' )
 		return false;
-	}
 	
 	strncpy(newTran, line, strlen(line)+1);
 	
-	cout << newTran << "+_" << endl;
-
-	insertIntoSet(transitions, newTran);
-	
+	insertIntoSet(transitions, newTran);	
 	
 	return true;
-
 }
 
 void getFinalStates(char* line, std::set<char*>& final){
 
+	int size;
+	char* newFinal;
 
+	if( *line == 'F' ){
+		while( *line ){
+			if( (size = isState(line)) ){
+				newFinal = new char[size+1];
+				strncpy(newFinal, line, size);
+				*(newFinal+size) = '\0';
+				insertIntoSet(final, newFinal);
+				line+=size;
+			}
+			else{
+				line++;
+			}
+		}
 
-
+	}
 }
 
 int readFile(char* path, char* file){

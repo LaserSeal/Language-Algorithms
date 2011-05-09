@@ -48,16 +48,10 @@ bool isLowChar( char letter );
 // otherwise it returns the size of the term or var in the 
 // char*
 
+int isState(char* state);
 
 /*NULL_CHAR IS NOT A TERMINAL, NEED TO FIX THIS */
 int isTerminal( char* term );
 int isVariable( char* var );
 
-
-//************************************************************
-/* bug :: SKIPPING THE NULL_CHAR, NEED TO PUT NULL_CHAR INTO THE VECTOR */
-//************************************************************
-// Splits a rule up by terminals and varibles
-// and puts it into a vector
-std::vector<char*> splitProduction(char* production);
-char* flattenProductVector(std::vector<char*> splitRule);
+std::vector<char*> splitTransition(char* transition);
