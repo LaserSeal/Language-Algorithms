@@ -1,10 +1,5 @@
-#include <stdio.h>
-#include <iostream>
-#include <fstream>
-#include <set>
-
-
-#define MAX_FILE_SIZE 512
+#include "finStateIO.h"
+#include "lib.h"
 
 /*
 M = {Q, E, D, q0, F}
@@ -29,6 +24,13 @@ F{ q1 }
 */
 
 void parseFiniteState(char* path, std::set<char*>* finiteState);
+void parseLine(char* line, std::set<char*>* finiteState);
+
+void getStates(char* line, std::set<char*>& states);
+void getAlphabet(char* line, std::set<char*>& alphabet);
+bool getTransitions(char* line, std::set<char*>& transitions);
+void getFinalStates(char* line, std::set<char*>& final);
+
 int readFile(char* path, char* file);
 
 
@@ -46,15 +48,77 @@ int main(){
 
 void parseFiniteState(char* path, set<char*>* finiteState){
 
+	char* p;
 	char file[MAX_FILE_SIZE];
+	char* line; 
 
 	readFile(path, file);
 
-	cout << file << endl;
+	line = strtok_r(file, "\n", &p);
+
+	while( line ){
+		parseLine(line, finiteState);
+		line = strtok_r(NULL, "\n", &p);
+	}
+
 	
 }
 
 
+void parseLine(char* line, set<char*>* finiteState){
+
+	//cout << line << "--" << endl;
+	if( getTransitions(line, finiteState[TRANSITIONS])){
+		//getStates(line, finiteState[STATES]);
+		//getAlhpabet(line, finiteState[ALPHABET]);
+	}
+	else{
+		getFinalStates(line, finiteState[FINAL]);
+	}
+
+	displaySet(finiteState[TRANSITIONS]);
+
+}
+
+
+
+
+void getStates(char* line, std::set<char*>& states){
+
+
+}
+void getAlphabet(char* line, std::set<char*>& alphabet){
+
+
+
+}
+
+bool getTransitions(char* line, std::set<char*>& transitions){
+	
+	char* newTran = new char[MAX_TRAN_SIZE+1];
+
+	
+	if( *line != 'd' ){
+		return false;
+	}
+	
+	strncpy(newTran, line, strlen(line)+1);
+	
+	cout << newTran << "+_" << endl;
+
+	insertIntoSet(transitions, newTran);
+	
+	
+	return true;
+
+}
+
+void getFinalStates(char* line, std::set<char*>& final){
+
+
+
+
+}
 
 int readFile(char* path, char* file){
 
