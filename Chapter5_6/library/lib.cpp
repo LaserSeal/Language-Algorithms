@@ -164,7 +164,8 @@ int isState(char* state){
 int isTerminal(char* term){
         //checks if the first char is a letter
         int termSize = 0;
-        if( isLowChar( *term++ ) ){
+        if( isLowChar( *term ) || *term == *NULL_CHAR ){
+		term++;
                 termSize++;
                 while( isDigit( *term++ ) ){
                         termSize++;
@@ -174,7 +175,19 @@ int isTerminal(char* term){
 }
 
 
-
+// d(state1, letter) = state2
+char* newTransition(char* state1, char* letter, char* state2){
+	char* newTran = new char[MAX_TRAN_SIZE+1];
+	
+	strncpy(newTran, "d(\0", 3);
+	strncat(newTran, state1, strlen(state1));
+	strncat(newTran, ", ", 2);
+	strncat(newTran, letter, strlen(letter));
+	strncat(newTran, ") = ", 4);
+	strncat(newTran, state2, strlen(state2));
+	
+	return newTran;
+}
 
 
 vector<char*> splitTransition(char* transition){

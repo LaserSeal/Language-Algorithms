@@ -112,7 +112,7 @@ void getAlphabet(char* line, std::set<char*>& alphabet){
 	while(*line != ',' && *line){ line++; }
 
 	while( *line ){
-		if( *line != 'q' && (size = isTerminal(line)) ){
+		if( *line != 'q' && (size = isTerminal(line)) && *line != *NULL_CHAR ){
 			newAlph = new char[size+1];
 			strncpy(newAlph, line, size);
 			*(newAlph+size) = '\0';

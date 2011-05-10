@@ -54,6 +54,9 @@ int isState(char* state);
 int isTerminal( char* term );
 int isVariable( char* var );
 
+// returns dynmically allocated memery. 
+// d(state1, letter) = state2
+char* newTransition(char* state1, char* letter, char* state2);
 
 char* flattenSplitTransition(std::vector<char*> vecTranisition);
 std::vector<char*> splitTransition(char* transition);
