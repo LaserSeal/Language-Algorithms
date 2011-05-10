@@ -205,7 +205,7 @@ vector<char*> splitTransition(char* transition){
 		transition+=size;
 	}
 
-
+	// Finds the alphabet its goes too
 	while( !(size = isTerminal(transition)) && *transition){
 		transition++;
 	}
@@ -220,6 +220,7 @@ vector<char*> splitTransition(char* transition){
 	}
 
 
+	// Findes the state that this transitions goes too.
 	while( !(size = isState(transition)) && *transition ){
 		transition++;		
 	}
@@ -235,4 +236,17 @@ vector<char*> splitTransition(char* transition){
 	return vecTransition;
 }
 
+char* flattenSplitTransition(vector<char*> vecTransition){
 
+	char* transition = new char[MAX_TRAN_SIZE+1];
+	
+	strncpy(transition, "d(\0", 3);
+
+	strncat(transition, vecTransition[0], strlen(vecTransition[0]));
+	strncat(transition, ", ", 2);
+	strncat(transition, vecTransition[1], strlen(vecTransition[1]));
+	strncat(transition, ") = ", 4);
+	strncat(transition, vecTransition[2], strlen(vecTransition[2]));
+	
+	return transition;
+}

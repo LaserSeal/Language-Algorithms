@@ -54,4 +54,6 @@ int isState(char* state);
 int isTerminal( char* term );
 int isVariable( char* var );
 
+
+char* flattenSplitTransition(std::vector<char*> vecTranisition);
 std::vector<char*> splitTransition(char* transition);

@@ -36,7 +36,7 @@ int readFile(char* path, char* file);
 
 
 using namespace std;
-int main(){
+/*int main(){
 	
 	set<char*> finiteState[4];
 
@@ -44,12 +44,12 @@ int main(){
 
 	vector<char*> test = splitTransition(*(finiteState[TRANSITIONS].begin()));
 	
-
+	
 	cout << test[0] << endl;
 	cout << test[1] << endl;
 	cout << test[2] << endl;
-		
-}
+	cout << flattenSplitTransition(test) << endl;	
+}*/
 
 
 
@@ -67,22 +67,10 @@ void parseFiniteState(char* path, set<char*>* finiteState){
 		parseLine(line, finiteState);
 		line = strtok_r(NULL, "\n", &p);
 	}
-
-
-	displaySet(finiteState[STATES]);
-	cout << "----" << endl;
-	displaySet(finiteState[ALPHABET]);
-	cout << "----" << endl;
-	displaySet(finiteState[TRANSITIONS]);
-	cout << "----" << endl;
-	displaySet(finiteState[FINAL]);
-	
 }
-
 
 void parseLine(char* line, set<char*>* finiteState){
 
-	//cout << line << "--" << endl;
 	if( getTransitions(line, finiteState[TRANSITIONS])){
 		getStates(line, finiteState[STATES]);
 		getAlphabet(line, finiteState[ALPHABET]);
@@ -90,12 +78,7 @@ void parseLine(char* line, set<char*>* finiteState){
 	else{
 		getFinalStates(line, finiteState[FINAL]);
 	}
-
-
-
 }
-
-
 
 
 void getStates(char* line, std::set<char*>& states){
@@ -117,7 +100,6 @@ void getStates(char* line, std::set<char*>& states){
 		}
 
 	}
-
 
 }
 
@@ -202,8 +184,3 @@ int readFile(char* path, char* file){
 	is.close();
 	return length;
 }
-
-
-
-
-
