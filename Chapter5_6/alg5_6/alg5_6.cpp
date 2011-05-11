@@ -1,6 +1,7 @@
 #include "finStateIO.h"
 #include "lib.h"
 
+set<char*> inputTransitionFunction(set<char*>* finiteState);
 
 
 using namespace std;
@@ -34,5 +35,18 @@ int main(){
 }
 
 
+set<char*> inputTransitionFunction(set<char*> transitions){
+
+	set<char*> lamdaClosure;
+	set<char*>::iterator itTran;
+
+	for( itTran = transitions.begin(); itTran != transitions.end(); itTran++){
+		
+	}
+
+
+
+
+}
 
 
