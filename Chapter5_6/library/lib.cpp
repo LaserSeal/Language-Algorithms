@@ -30,7 +30,8 @@ void unionSet(set<char*>& setA, set<char*> setB){
 	set<char*>::iterator it;
 	
 	for( it = setB.begin(); it != setB.end(); it++){
-		setA.insert(*it);
+	//	setA.insert(*it);
+		insertIntoSet(setA, *it);
 	}
 
 }
@@ -263,3 +264,33 @@ char* flattenSplitTransition(vector<char*> vecTransition){
 	
 	return transition;
 }
+
+char* convertSetToString(set<char*> setA){
+	char* newString = new char[MAX_TRAN_SIZE+1];
+	set<char*>::iterator it;
+	*(newString) = '\0';
+	
+	for(it = setA.begin(); it != setA.end(); it++){
+		strncat(newString, *it, strnlen(*it, MAX_STATE_SIZE));	
+	}
+
+	return newString;
+}
+
+set<char*> parseStateString(char* states){
+
+	set<char*> setStates;
+	char* newState;
+	int size;
+	
+	while((size = isState(states))){
+		newState = new char[MAX_STATE_SIZE+1];
+		strncpy(newState, states, size);
+		*(newState+size) = '\0';
+		insertIntoSet(setStates, newState);
+		states+=size;
+	}	
+
+	return setStates;
+}
+

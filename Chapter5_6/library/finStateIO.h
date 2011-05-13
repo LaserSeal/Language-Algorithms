@@ -14,8 +14,7 @@
 #define FINAL 3
 
 #define MAX_TRAN_SIZE 40
-
-#define NULL_CHAR "$"
+#define MAX_STATE_SIZE 8
 
 void parseFiniteState(char* path, std::set<char*>* fininteState);
 

@@ -3,9 +3,7 @@
 
 void alg5_6(char* pathIn, char* pathOut);
 void removeNonDeterminism(std::set<char*>* finiteState);
-char* getY(char* letter, std::set<char*> statesX, std::set<char*>* finiteState);
-bool noArc(std::set<char*> states, std::set<char*>* finiteState);
-bool transitionExist(char* state, char* letter, std::set<char*> transitions);
+bool noArc(char* state, char* letter, std::set<char*> transitions);
 
 std::set<char*> inputTransitionFunction(char* state, char* letter, std::set<char*>* finiteState);
 std::set<char*> lambdaClosure(char* tran, std::set<char*> transitions);
@@ -58,25 +56,15 @@ void alg5_6(char* pathIn, char* pathOut){
 void removeNonDeterminism(std::set<char*>* finiteState){
 
 	set<char*> Q = lambdaClosure("q0", finiteState[TRANSITIONS]);
-	set<char*> statesX;
-	set<char*>::iterator X = Q.begin();
+	set<char*> Y;
+	set<char*>::iterator X;
 	set<char*>::iterator itAlph;
-	char* Y;
 	bool done = false;
-
+	
 
 	do{
-		if( noArc(Q, finiteState) && X != Q.end()){
-			statesX = parseStateString(*X);
-			for(itAlph = finiteState[ALPHABET].begin(); itAlph != finiteState[ALPHABET].end(); itAlph++){
-				Y = getY(*itAlph, statesX, finiteState);
-				cout << "########## " << Y << " ########" << endl;
-				cout << *X << "--" << *itAlph << endl;
-				insertIntoSet(Q, Y);
-			}
+		if( noArc(Q, finiteState) ){
 
-			X++;
-			
 		}
 		else{
 			done = true;
@@ -84,58 +72,42 @@ void removeNonDeterminism(std::set<char*>* finiteState){
 		
 	}while(!done);
 
-	displaySet(Q);
-}
 
 
-
-char* getY( char* letter, set<char*> statesX, set<char*>* finiteState){
-
-	set<char*> Y;
-	set<char*>::iterator itState;
-	char* statesY;
-
-	for( itState = statesX.begin(); itState != statesX.end(); itState++){
-		unionSet(Y, inputTransitionFunction(*itState, letter, finiteState));
-	}	
-
-	return convertSetToString(Y);
-}
-
-// Returns true if it is not a DFA yet, hence that there is a state
-// that does not have an arc for all the alphabet letters
-bool noArc(set<char*> states,  set<char*>* finiteState){
-	
-	set<char*>::iterator itState;
-	set<char*>::iterator itAlph;
-
-	for( itState = states.begin(); itState != states.end(); itState++){
+/*
+	for( X = Q.begin(); X != Q.end(); X++){
 		for( itAlph = finiteState[ALPHABET].begin(); itAlph != finiteState[ALPHABET].end(); itAlph++){
-			if(!transitionExist(*itState, *itAlph, finiteState[TRANSITIONS])){
-				return true;
+			if( noArc(*X, *itAlph, finiteState[TRANSITIONS])){
+				cout << *X << " | " << *itAlph << endl;
+				Y = inputTransitionFunction(*X, *itAlph, finiteState);
+				displaySet(Y);
 			}
+
+			
 		}
 	}
-	return false;
+*/
+
+
 }
 
-// Finds a trasition for the given state a letter, if none exist return false
-bool transitionExist(char* state, char* letter, set<char*> transitions){
+
+// Returns true if there is no arc for state to letter
+bool noArc(set<char*> states,  set<char*>* finiteState){
+	
 	vector<char*> splitTran;
 	set<char*>::iterator itTran;
-	
 
 	for( itTran = transitions.begin(); itTran != transitions.end(); itTran++){
 		splitTran = splitTransition(*itTran);
-		if( strcmp(state, splitTran[0]) == 0 && strcmp(letter, splitTran[1]) == 0){
-			return true;
+		if( strcmp( state, splitTran[0]) == 0 && strcmp(letter, splitTran[1]) == 0){
+			return false;	
 		}
 	}
-
-	return false;
-
-
+	return true;
 }
+
+
 // ###################### Input Transition Function ##################################
 /*
 

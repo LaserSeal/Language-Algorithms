@@ -60,3 +60,9 @@ char* newTransition(char* state1, char* letter, char* state2);
 
 char* flattenSplitTransition(std::vector<char*> vecTranisition);
 std::vector<char*> splitTransition(char* transition);
+
+// Takes a set of states and converts it into a char*
+char* convertSetToString(std::set<char*> setA);
+
+// Takes a char* of states and converts it to a set.
+std::set<char*> parseStateString(char* states);
