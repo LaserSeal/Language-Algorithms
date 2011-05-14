@@ -1,6 +1,5 @@
-S -> A0B0 | A0T1
+S -> A0B0 | A0T0
 X -> A0B0 | A0T0
 A0 -> a
-T1 -> XB0
 B0 -> b
 T0 -> XB0

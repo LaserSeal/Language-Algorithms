@@ -1,5 +1,6 @@
 #include "lib.h"
 #include "gramIO.h"
+#include "latex.h"
 
 #define MAX_NUM_VAR 8
 
@@ -76,8 +77,8 @@ void CYKalg(set<char*>* grammer, char* input, char* pathOut){
 	}
 
 	//printDiagMatrix(X, n);
-
-	outputMatrix(X, pathOut, n);
+	outputLatex(X, pathOut, n);
+//	outputMatrix(X, pathOut, n);
 }
 
 
@@ -208,5 +209,3 @@ void printDiagMatrix( vector<vector<set<char*> > > X, int n){
 		cout << endl;
 	}
 }
-
-

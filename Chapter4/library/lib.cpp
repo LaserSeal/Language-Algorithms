@@ -176,6 +176,7 @@ char* getVariable(char* production){
 	if( (size = isVariable(production)) ){
 		newVar = new char[MAX_VAR_SIZE+1];
 		strncpy(newVar, production, size+1);
+		*(newVar+size) = '\0';
 		return newVar;
 	}
 	return NULL;

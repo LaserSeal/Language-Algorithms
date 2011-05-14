@@ -18,7 +18,7 @@
 // Reading in File Functions 
 //##############################
 
-#define MAX_FILE_SIZE 256
+#define MAX_FILE_SIZE 512
 
 // Uses readFile to get a dynamic array with the
 // exact size of the file in a char*
