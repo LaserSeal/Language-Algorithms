@@ -23,6 +23,9 @@ F{ q1 }
 
 */
 
+void outputFiniteState( char* outPath, std::set<char*>* finitesState );
+void sendStream(char* path, char* outputStream);
+
 void parseFiniteState(char* path, std::set<char*>* finiteState);
 void parseLine(char* line, std::set<char*>* finiteState);
 
@@ -51,6 +54,48 @@ using namespace std;
 	cout << flattenSplitTransition(test) << endl;	
 }*/
 
+void outputFiniteState( char* outPath, set<char*>* finiteState){
+	
+	set<char*>::iterator itTran;
+	set<char*>::iterator itFinal;
+	char outStream[MAX_FILE_SIZE] = "";	
+
+	for( itTran = finiteState[TRANSITIONS].begin(); itTran != finiteState[TRANSITIONS].end(); itTran++){
+		strncat(outStream, *itTran, MAX_TRAN_SIZE);
+		strncat(outStream, "\n", 1);
+	}
+
+
+	strncat(outStream, "\nF{", 3);
+	for( itFinal = finiteState[FINAL].begin(); itFinal != finiteState[FINAL].end(); itFinal++){
+		strncat(outStream, *itFinal, MAX_STATE_SIZE);
+		if( ++itFinal != finiteState[FINAL].end()){
+				strncat(outStream, ",", 1);
+		}
+		itFinal--;
+	}
+	
+	strncat(outStream, "}\n", 2);
+
+	sendStream(outPath, outStream);
+}
+
+
+void sendStream( char* path, char* outputStream ){
+
+    int size = strlen(outputStream);
+
+    ofstream outfile( path );
+    if( outfile.is_open() && outfile.good()){
+
+        outfile.write(outputStream, size);
+    }
+    else{
+        cerr << "Error in opening file: " << path << endl;
+        throw;
+    }
+    outfile.close();
+}
 
 
 void parseFiniteState(char* path, set<char*>* finiteState){

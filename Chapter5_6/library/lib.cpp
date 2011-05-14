@@ -152,7 +152,7 @@ int isState(char* state){
 	int stateSize = 0;
 	if( *state++ == 'q' ){
 		stateSize++;
-		while( isDigit( *state++ ) ){
+		while( isDigit( *state++ ) || strncmp(state, EMPTY_SET, 1) == 0 ){
 			stateSize++;
 		}
 	}

@@ -9,6 +9,7 @@
 #include <string.h>
 #include <vector>
 
+#define EMPTY_SET "0"
 #define NULL_CHAR "$"
 
 // Basic Set Functions

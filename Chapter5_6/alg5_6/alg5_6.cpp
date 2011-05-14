@@ -3,7 +3,9 @@
 
 void alg5_6(char* pathIn, char* pathOut);
 void removeNonDeterminism(std::set<char*>* finiteState);
+void finalStates(std::set<char*> Q, std::set<char*>* finiteState);
 char* getY(char* letter, std::set<char*> statesX, std::set<char*>* finiteState);
+char* makeNewTransition(char* state, char* letter, char* state2);
 bool noArc(std::set<char*> states, std::set<char*>* finiteState);
 bool transitionExist(char* state, char* letter, std::set<char*> transitions);
 
@@ -27,26 +29,16 @@ void alg5_6(char* pathIn, char* pathOut){
 	set<char*> finiteState[4];
 	parseFiniteState(pathIn, finiteState);
 	
+
+	displaySet(inputTransitionFunction("q1", "b", finiteState));
+
 	removeNonDeterminism(finiteState);
 
-	vector<char*> split;
-	set<char*> tmp;	
 
-	vector<char*>::iterator itVec;
+	
 
-	set<char*>::iterator itState;
-	set<char*>::iterator itAlph;
+	outputFiniteState(pathOut, finiteState);
 
-	//displaySet(lambdaClosure("q0", finiteState[TRANSITIONS]));
-/*
-	for( itState = finiteState[STATES].begin(); itState != finiteState[STATES].end(); itState++){
-		for( itAlph = finiteState[ALPHABET].begin(); itAlph != finiteState[ALPHABET].end(); itAlph++){
-			displaySet(inputTransitionFunction(*itState, *itAlph, finiteState));
-			cout << "--" << *itAlph << endl;
-		}	
-		cout << "####" << *itState << endl;
-	}
-*/
 }
 
 
@@ -58,11 +50,14 @@ void alg5_6(char* pathIn, char* pathOut){
 void removeNonDeterminism(std::set<char*>* finiteState){
 
 	set<char*> Q = lambdaClosure("q0", finiteState[TRANSITIONS]);
+	set<char*> tmpSet;
 	set<char*> statesX;
 	set<char*>::iterator X = Q.begin();
 	set<char*>::iterator itAlph;
 	char* Y;
+	char* newTran;
 	bool done = false;
+
 
 
 	do{
@@ -70,12 +65,12 @@ void removeNonDeterminism(std::set<char*>* finiteState){
 			statesX = parseStateString(*X);
 			for(itAlph = finiteState[ALPHABET].begin(); itAlph != finiteState[ALPHABET].end(); itAlph++){
 				Y = getY(*itAlph, statesX, finiteState);
-				cout << "########## " << Y << " ########" << endl;
-				cout << *X << "--" << *itAlph << endl;
+				newTran  = makeNewTransition(*X, *itAlph, Y);
 				insertIntoSet(Q, Y);
-			}
+				insertIntoSet(tmpSet, newTran);
+		}
 
-			X++;
+				++X;
 			
 		}
 		else{
@@ -84,10 +79,60 @@ void removeNonDeterminism(std::set<char*>* finiteState){
 		
 	}while(!done);
 
+	finiteState[TRANSITIONS].clear();
+	unionSet(finiteState[TRANSITIONS], tmpSet);
+
+	finalStates(Q, finiteState);
+
 	displaySet(Q);
 }
 
 
+
+
+void finalStates(set<char*> Q, set<char*>* finiteState){
+
+	set<char*> splitState;
+	set<char*>::iterator itState;
+	set<char*>::iterator it;
+
+	for( itState = Q.begin(); itState != Q.end(); itState++){
+		splitState = parseStateString(*itState);
+		for( it = splitState.begin(); it != splitState.end(); it++){
+			if( member( finiteState[FINAL], *it ) ){
+				finiteState[FINAL].insert(*itState);
+			}
+		}
+
+	}
+
+
+
+}
+
+
+
+char* makeNewTransition(char* state1, char* letter, char* state2){
+
+	char* newTran = new char[MAX_TRAN_SIZE+1];
+
+	if( *state2){
+		newTran = newTransition(state1, letter, state2);
+	}
+	else{
+		if(*state1){	
+			newTran = newTransition(state1, letter, EMPTY_SET);
+		}
+		else{
+			newTran = newTransition(EMPTY_SET, letter, EMPTY_SET);	
+		}
+	}
+
+	return newTran;
+
+
+
+}
 
 char* getY( char* letter, set<char*> statesX, set<char*>* finiteState){
 
@@ -98,8 +143,8 @@ char* getY( char* letter, set<char*> statesX, set<char*>* finiteState){
 	for( itState = statesX.begin(); itState != statesX.end(); itState++){
 		unionSet(Y, inputTransitionFunction(*itState, letter, finiteState));
 	}	
-
-	return convertSetToString(Y);
+	cout << "()____" << (statesY = convertSetToString(Y)) << endl;
+	return statesY;
 }
 
 // Returns true if it is not a DFA yet, hence that there is a state

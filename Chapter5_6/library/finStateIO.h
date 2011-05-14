@@ -16,6 +16,8 @@
 #define MAX_TRAN_SIZE 40
 #define MAX_STATE_SIZE 8
 
+void outputFiniteState(char* outPath, std::set<char*>* finiteState);
+
 void parseFiniteState(char* path, std::set<char*>* fininteState);
 
 
