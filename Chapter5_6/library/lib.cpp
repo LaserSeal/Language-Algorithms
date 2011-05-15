@@ -150,9 +150,9 @@ bool isLowChar( char letter ){
 
 int isState(char* state){
 	int stateSize = 0;
-	if( *state++ == 'q' ){
+	if( *state++ == 'q' || strncmp(state, EMPTY_SET, 1) == 0 ){
 		stateSize++;
-		while( isDigit( *state++ ) || strncmp(state, EMPTY_SET, 1) == 0 ){
+		while( isDigit( *state++ )){ //|| strncmp(state, EMPTY_SET, 1) == 0 ){
 			stateSize++;
 		}
 	}

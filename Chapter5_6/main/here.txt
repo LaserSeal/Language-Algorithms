@@ -1,9 +1,9 @@
-d(q0, a) = q0q1q2
+d(q0, a) = q2q1q0
 d(q0, b) = 0
 d(q0, c) = 0
-d(q0q1q2, a) = q0q1q2
-d(q0q1q2, b) = q1
-d(q0q1q2, c) = q2q1
+d(q2q1q0, a) = q2q1q0
+d(q2q1q0, b) = q1
+d(q2q1q0, c) = q2q1
 d(0, a) = 0
 d(0, b) = 0
 d(0, c) = 0
@@ -14,4 +14,4 @@ d(q2q1, a) = 0
 d(q2q1, b) = q1
 d(q2q1, c) = q2q1
 
-F{q0q1q2,q1,q2q1}
+F{q2q1q0,q1,q2q1}

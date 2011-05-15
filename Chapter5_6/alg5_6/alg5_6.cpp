@@ -14,11 +14,11 @@ std::set<char*> lambdaClosure(char* tran, std::set<char*> transitions);
 std::set<char*> canReachLetter(char* letter, std::set<char*> reach, std::set<char*> transitions);
 
 using namespace std;
-int main(){
+/*int main(){
 
 	alg5_6("dfa.txt", "dfaOut.txt");
 
-}
+}*/
 
 
 
@@ -28,23 +28,35 @@ void alg5_6(char* pathIn, char* pathOut){
 
 	set<char*> finiteState[4];
 	parseFiniteState(pathIn, finiteState);
-	
 
-	displaySet(inputTransitionFunction("q1", "b", finiteState));
+	//displaySet(inputTransitionFunction("q1", "b", finiteState));
 
 	removeNonDeterminism(finiteState);
 
-
-	
-
 	outputFiniteState(pathOut, finiteState);
+
 
 }
 
 
 
 
+/* Construction of DM, a DFA Equivalent to NFA-Lambda M
 
+input: an NFA-Lambda M = {Q, E, d, q0, F}
+
+1. init Q' to lambda-closure(q0)
+2. repeat
+	2.1. IF there is a noda X (exist in) Q' and a symbol a (exist in) E with no arc
+		leaving X labeled a, THEN
+		2.1.1. let Y = U inputTransitionFunction(qi, a) where qi (exist in) X
+		2.1.2. IF Y (does not exist in) Q', then set Q' := Q' U{Y}
+		2.1.3. add an arc from X to Y labeled a
+	else done := true
+until done
+
+
+*/
 
 
 void removeNonDeterminism(std::set<char*>* finiteState){
@@ -83,8 +95,6 @@ void removeNonDeterminism(std::set<char*>* finiteState){
 	unionSet(finiteState[TRANSITIONS], tmpSet);
 
 	finalStates(Q, finiteState);
-
-	displaySet(Q);
 }
 
 
@@ -92,6 +102,7 @@ void removeNonDeterminism(std::set<char*>* finiteState){
 
 void finalStates(set<char*> Q, set<char*>* finiteState){
 
+	set<char*> newFinalStates;
 	set<char*> splitState;
 	set<char*>::iterator itState;
 	set<char*>::iterator it;
@@ -100,14 +111,13 @@ void finalStates(set<char*> Q, set<char*>* finiteState){
 		splitState = parseStateString(*itState);
 		for( it = splitState.begin(); it != splitState.end(); it++){
 			if( member( finiteState[FINAL], *it ) ){
-				finiteState[FINAL].insert(*itState);
+				insertIntoSet(newFinalStates, *itState);
 			}
 		}
-
 	}
 
-
-
+	finiteState[FINAL].clear();
+	unionSet(finiteState[FINAL], newFinalStates);
 }
 
 
@@ -129,24 +139,18 @@ char* makeNewTransition(char* state1, char* letter, char* state2){
 	}
 
 	return newTran;
-
-
-
 }
 
 char* getY( char* letter, set<char*> statesX, set<char*>* finiteState){
 
 	set<char*> Y;
 	set<char*>::iterator itState;
-	char* statesY;
 
 	for( itState = statesX.begin(); itState != statesX.end(); itState++){
 		unionSet(Y, inputTransitionFunction(*itState, letter, finiteState));
 	}	
-	cout << "()____" << (statesY = convertSetToString(Y)) << endl;
-	return statesY;
+	return convertSetToString(Y);
 }
-
 // Returns true if it is not a DFA yet, hence that there is a state
 // that does not have an arc for all the alphabet letters
 bool noArc(set<char*> states,  set<char*>* finiteState){

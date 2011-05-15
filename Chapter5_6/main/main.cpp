@@ -5,7 +5,9 @@
 
 int main(){
 
-
-
+	int i = 0;
+	while(i++ < 1000){
+	alg5_6("../alg5_6/dfa.txt", "here.txt");
+	}
 
 }
