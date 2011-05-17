@@ -6,11 +6,11 @@ using namespace std;
 int main(){
 
 	int i = 0;
-	while(i++ < 50){
-		alg5_6("../alg5_6/dfa3.txt", "here.txt");
+	while(i++ < 1){
+		alg5_7("dfa.txt", "here.txt");
 	}
 	cout << "--END--" << endl;
 
-	while(1);
+	//while(1);
 
 }
