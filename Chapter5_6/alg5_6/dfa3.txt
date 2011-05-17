@@ -1,7 +1,7 @@
-d(q1, a) = q2
-d(q1, $) = q4
-d(q2, $) = q3
-d(q4, a) = q5
-d(q5, $) = q6
+d(q0, a) = q1
+d(q0, b) = q0
+d(q0, c) = q0
+d(q0, d) = q0
+d(q1, b) = q1
 
 F{q1}

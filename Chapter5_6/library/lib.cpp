@@ -196,7 +196,6 @@ vector<char*> splitTransition(char* transition){
 	vector<char*> vecTransition;
 	char* newChar;
 	int size;
-	
 
 	
 	while( *transition != '(' && *transition ){
@@ -246,6 +245,8 @@ vector<char*> splitTransition(char* transition){
 		vecTransition.push_back(newChar);
 		transition+=size;
 	}
+
+
 	
 	return vecTransition;
 }

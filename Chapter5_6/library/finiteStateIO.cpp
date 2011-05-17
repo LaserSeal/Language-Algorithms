@@ -116,6 +116,8 @@ void parseFiniteState(char* path, set<char*>* finiteState){
 
 void parseLine(char* line, set<char*>* finiteState){
 
+
+
 	if( getTransitions(line, finiteState[TRANSITIONS])){
 		getStates(line, finiteState[STATES]);
 		getAlphabet(line, finiteState[ALPHABET]);
@@ -227,5 +229,6 @@ int readFile(char* path, char* file){
 	}
 	
 	is.close();
+	*(file+length) = '\0';
 	return length;
 }

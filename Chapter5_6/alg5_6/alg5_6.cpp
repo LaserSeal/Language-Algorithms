@@ -6,8 +6,11 @@ void removeNonDeterminism(std::set<char*>* finiteState);
 void finalStates(std::set<char*> Q, std::set<char*>* finiteState);
 char* getY(char* letter, std::set<char*> statesX, std::set<char*>* finiteState);
 char* makeNewTransition(char* state, char* letter, char* state2);
-bool noArc(std::set<char*> states, std::set<char*>* finiteState);
+bool noArc(std::set<char*> states, std::set<char*> alphabet, std::set<char*> transitions);
 bool transitionExist(char* state, char* letter, std::set<char*> transitions);
+
+
+void freeSet(std::set<char*>& setA);
 
 std::set<char*> inputTransitionFunction(char* state, char* letter, std::set<char*>* finiteState);
 std::set<char*> lambdaClosure(char* tran, std::set<char*> transitions);
@@ -30,12 +33,19 @@ void alg5_6(char* pathIn, char* pathOut){
 	parseFiniteState(pathIn, finiteState);
 
 	//displaySet(inputTransitionFunction("q1", "b", finiteState));
+	
+//	displaySet(finiteState[TRANSITIONS]);
 
+	
 	removeNonDeterminism(finiteState);
 
 	outputFiniteState(pathOut, finiteState);
 
 
+	freeSet(finiteState[0]);
+	freeSet(finiteState[1]);
+	freeSet(finiteState[2]);
+	freeSet(finiteState[3]);
 }
 
 
@@ -61,7 +71,7 @@ until done
 
 void removeNonDeterminism(std::set<char*>* finiteState){
 
-	set<char*> Q = lambdaClosure("q0", finiteState[TRANSITIONS]);
+	set<char*> Q = lambdaClosure((char*)"q0", finiteState[TRANSITIONS]);
 	set<char*> tmpSet;
 	set<char*> statesX;
 	set<char*>::iterator X = Q.begin();
@@ -73,17 +83,16 @@ void removeNonDeterminism(std::set<char*>* finiteState){
 
 
 	do{
-		if( noArc(Q, finiteState) && X != Q.end()){
+		if( noArc(Q, finiteState[ALPHABET], tmpSet) && X != Q.end()){
 			statesX = parseStateString(*X);
 			for(itAlph = finiteState[ALPHABET].begin(); itAlph != finiteState[ALPHABET].end(); itAlph++){
 				Y = getY(*itAlph, statesX, finiteState);
 				newTran  = makeNewTransition(*X, *itAlph, Y);
 				insertIntoSet(Q, Y);
 				insertIntoSet(tmpSet, newTran);
-		}
-
-				++X;
-			
+			}
+			freeSet(statesX);
+			++X;	
 		}
 		else{
 			done = true;
@@ -91,6 +100,7 @@ void removeNonDeterminism(std::set<char*>* finiteState){
 		
 	}while(!done);
 
+	freeSet(finiteState[TRANSITIONS]);
 	finiteState[TRANSITIONS].clear();
 	unionSet(finiteState[TRANSITIONS], tmpSet);
 
@@ -98,6 +108,14 @@ void removeNonDeterminism(std::set<char*>* finiteState){
 }
 
 
+void freeSet(set<char*>& setA){
+
+	set<char*>::iterator it;
+
+	for( it = setA.begin(); it != setA.end(); ++it){
+		delete(*it);
+	}
+}
 
 
 void finalStates(set<char*> Q, set<char*>* finiteState){
@@ -114,8 +132,10 @@ void finalStates(set<char*> Q, set<char*>* finiteState){
 				insertIntoSet(newFinalStates, *itState);
 			}
 		}
+		freeSet(splitState);
 	}
 
+	freeSet(finiteState[FINAL]);
 	finiteState[FINAL].clear();
 	unionSet(finiteState[FINAL], newFinalStates);
 }
@@ -131,10 +151,10 @@ char* makeNewTransition(char* state1, char* letter, char* state2){
 	}
 	else{
 		if(*state1){	
-			newTran = newTransition(state1, letter, EMPTY_SET);
+			newTran = newTransition(state1, letter, (char*)EMPTY_SET);
 		}
 		else{
-			newTran = newTransition(EMPTY_SET, letter, EMPTY_SET);	
+			newTran = newTransition((char*)EMPTY_SET, letter, (char*)EMPTY_SET);	
 		}
 	}
 
@@ -144,23 +164,27 @@ char* makeNewTransition(char* state1, char* letter, char* state2){
 char* getY( char* letter, set<char*> statesX, set<char*>* finiteState){
 
 	set<char*> Y;
+	char* strY;
 	set<char*>::iterator itState;
+
 
 	for( itState = statesX.begin(); itState != statesX.end(); itState++){
 		unionSet(Y, inputTransitionFunction(*itState, letter, finiteState));
 	}	
-	return convertSetToString(Y);
+	strY = convertSetToString(Y);
+	freeSet(Y);
+	return strY;
 }
 // Returns true if it is not a DFA yet, hence that there is a state
 // that does not have an arc for all the alphabet letters
-bool noArc(set<char*> states,  set<char*>* finiteState){
+bool noArc(set<char*> states,  set<char*> alphabet, set<char*> transitions){
 	
 	set<char*>::iterator itState;
 	set<char*>::iterator itAlph;
 
 	for( itState = states.begin(); itState != states.end(); itState++){
-		for( itAlph = finiteState[ALPHABET].begin(); itAlph != finiteState[ALPHABET].end(); itAlph++){
-			if(!transitionExist(*itState, *itAlph, finiteState[TRANSITIONS])){
+		for( itAlph = alphabet.begin(); itAlph != alphabet.end(); itAlph++){
+			if(!transitionExist(*itState, *itAlph, transitions)){
 				return true;
 			}
 		}
@@ -178,7 +202,12 @@ bool transitionExist(char* state, char* letter, set<char*> transitions){
 		splitTran = splitTransition(*itTran);
 		if( strcmp(state, splitTran[0]) == 0 && strcmp(letter, splitTran[1]) == 0){
 			return true;
-		}
+		}	
+
+		delete splitTran[2];
+		delete splitTran[1];
+		delete splitTran[0];
+			
 	}
 
 	return false;
@@ -193,7 +222,6 @@ t(qi, a) = U lambdaClosure(d(qj,a)), qj (exist in) lambdaClosure(qi)
 */
 set<char*> inputTransitionFunction(char* state, char* letter, set<char*>* finiteState){
 
-	vector<char*> splitTran;
 	set<char*> lambdaSet;
 	set<char*> reachable;
 	set<char*>::iterator itState;
@@ -202,7 +230,9 @@ set<char*> inputTransitionFunction(char* state, char* letter, set<char*>* finite
 	lambdaSet = lambdaClosure(state, finiteState[TRANSITIONS]);
 		
 	unionSet(reachable, canReachLetter(letter, lambdaSet, finiteState[TRANSITIONS]));
-	
+
+	freeSet(lambdaSet);	
+
 	return reachable;
 }
 
@@ -215,15 +245,22 @@ set<char*> lambdaClosure(char* state, set<char*> transitions){
 	set<char*> reachable;
 	char* newState;
 	int size;
-	
-	reachable.insert(state);
+
+	newState = new char[MAX_STATE_SIZE+1];
+	strncpy(newState, state, MAX_STATE_SIZE);
+	insertIntoSet(reachable, newState);
 
 	for( itTran = transitions.begin(); itTran != transitions.end(); itTran++){
 		splitTran = splitTransition(*itTran);
 		if( strcmp(splitTran[1], NULL_CHAR) == 0 && strcmp(state, splitTran[0]) == 0){
 			unionSet(reachable, lambdaClosure(splitTran[2], transitions));
 		}
+		//cout << splitTran[0] << ", " << splitTran[1] << " = " << splitTran[2] << endl;
+		delete splitTran[0];
+		delete splitTran[1];
+		delete splitTran[2];
 	}
+	
 	
 	return reachable;
 }
@@ -245,6 +282,9 @@ set<char*> canReachLetter(char* letter, set<char*> lambdaSet, set<char*> transit
 			if(strcmp(*itReach, splitTran[0]) == 0 && strcmp(letter, splitTran[1]) == 0){
 				unionSet(reachable, lambdaClosure(splitTran[2], transitions));
 			}
+			delete splitTran[0];
+			delete splitTran[1];
+			delete splitTran[2];
 		}		
 	}
 	
