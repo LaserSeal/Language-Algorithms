@@ -9,6 +9,9 @@
 #include <string.h>
 #include <vector>
 
+// Used in alg4_6
+typedef std::vector<std::vector<std::set<char*> > > setMatrix;
+
 #define NULL_CHAR "$"
 
 // Basic Set Functions

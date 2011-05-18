@@ -6,12 +6,11 @@
 
 void CYKalg(std::set<char*>* grammer, char* input, char* pathOut); 
 void addDerivableVars( std::set<char*> B, std::set<char*> C, std::set<char*>& addTo, std::set<char*> rules);
-std::vector<std::vector<std::set<char*> > > init2DMatrix(int n);
+setMatrix init2DMatrix(int n);
 
-
-void outputMatrix(std::vector<std::vector<std::set<char*> > > X, char* pathOut, int size);
-int maxSetSize(std::vector<std::vector<std::set<char*> > > X, int n);
-void printDiagMatrix( std::vector<std::vector<std::set<char*> > >, int n);
+void outputMatrix(setMatrix X, char* pathOut, int size);
+int maxSetSize(setMatrix X, int n);
+void printDiagMatrix( setMatrix, int n);
 
 
 
@@ -49,7 +48,7 @@ void CYKalg(set<char*>* grammer, char* input, char* pathOut){
 	int n = splitInput.size();
 
 	// 1. initialize all Xi,j to {}
-	vector<vector<set<char*> > > X = init2DMatrix(n);
+	setMatrix X = init2DMatrix(n);
 
 	// 2. for i = 1 to n
 	// 	for each variable A, if there is a rule A -> xi then Xi,i := Xi,i U {A}
@@ -75,7 +74,11 @@ void CYKalg(set<char*>* grammer, char* input, char* pathOut){
 	if( member(X[1][n], *(grammer[START].begin()))){
 		cout << input << ": is in the language" << endl;
 	}
+	else{
+		cout << input << ": is not in the language" << endl;
+	}
 
+	// Should add choice from the user to print into latex or a txt file.
 	//printDiagMatrix(X, n);
 	outputLatex(X, pathOut, n);
 //	outputMatrix(X, pathOut, n);
@@ -120,9 +123,9 @@ void addDerivableVars( set<char*> B, set<char*> C, set<char*>& addTo, set<char*>
 	}
 }
 
-vector<vector<set<char*> > > init2DMatrix(int n){
+setMatrix init2DMatrix(int n){
 
-	vector<vector<set<char*> > > X;
+	setMatrix X;
 
 	X.resize(n+1);
 	for( int i = 1; i <= n; i++){
@@ -136,7 +139,7 @@ vector<vector<set<char*> > > init2DMatrix(int n){
 
 // *** Looking pretty functions *** \\\
 
-void outputMatrix(vector<vector<set<char*> > > X, char* pathOut, int n){
+void outputMatrix(setMatrix X, char* pathOut, int n){
 
 	set<char*>::iterator it;
 	char outputStream[MAX_FILE_SIZE*2] = "";
@@ -164,7 +167,7 @@ void outputMatrix(vector<vector<set<char*> > > X, char* pathOut, int n){
 
 
 
-int maxSetSize(vector<vector<set<char*> > > X, int n){
+int maxSetSize(setMatrix X, int n){
 
 	int tmpSize, maxSize = 0;
 
@@ -181,7 +184,7 @@ int maxSetSize(vector<vector<set<char*> > > X, int n){
 }
 
 
-void printDiagMatrix( vector<vector<set<char*> > > X, int n){
+void printDiagMatrix( setMatrix X, int n){
 
 
 	set<char*>::iterator it;

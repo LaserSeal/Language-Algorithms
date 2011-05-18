@@ -13,8 +13,10 @@ int main(){
 	
 	int i = 0;
 
-	while(i++ < 1){
-		alg4_6(gramOutA, gramOutB, "aaabbb");
+	char* test[10] = {"a", "aa", "aab", "baa", "aabb", "bbaa", "bbbaaa", "aaabbb", "abba", "bababa"};
+
+	while(i < 10){
+		alg4_6(gramOutA, gramOutB, test[i++]);
 	}
 
 /*
@@ -43,7 +45,7 @@ int main(){
 		alg4_4_4(gramOutB, gramOutA);	*/
 	cout << gramOutA << endl;	
 	cout << "WORKED" << endl;
-
+	while(1);
 }
 
 

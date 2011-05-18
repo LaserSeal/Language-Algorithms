@@ -9,7 +9,7 @@ void outputLatex( vector<vector<set<char*> > > matrix, char* pathOut, int size){
 
 
 	char final[MAX_FILE_SIZE*2] = "";
-	char topHalf[MAX_FILE_SIZE*2] = "\\documentclass{article}\n\n\\usepackage[english]{babel}\n\n\\begin{document}\n\n\\begin{center}\n\t\\begin{tabular}{";// | l | l | l | l |}\n\t\\hline\n\t";
+	char topHalf[MAX_FILE_SIZE*2] = "\\documentclass{article}\n\n\\usepackage[english]{babel}\n\n\\begin{document}\n\n\\begin{center}\n\t\\begin{tabular}{";
 	char botHalf[] = "\t\\hline\n\t\\end{tabular}\n\\end{center}\n\n\\end{document}\n";
 	char pdflatex[256] = "pdflatex ";
 	set<char*>::iterator it;
