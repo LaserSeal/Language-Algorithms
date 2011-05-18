@@ -12,6 +12,8 @@
 #define EMPTY_SET "0"
 #define NULL_CHAR "$"
 
+typedef std::vector<std::vector<std::set<char*> > > setMatrix;
+
 // Basic Set Functions
 bool member(std::set<char*> setA, char* data);
 void unionSet(std::set<char*>& setA, std::set<char*> setB);
@@ -67,3 +69,6 @@ char* convertSetToString(std::set<char*> setA);
 
 // Takes a char* of states and converts it to a set.
 std::set<char*> parseStateString(char* states);
+
+void freeSet(std::set<char*>& setA);
+void freeVector(std::vector<char*>& vec);

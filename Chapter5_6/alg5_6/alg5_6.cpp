@@ -9,9 +9,6 @@ char* makeNewTransition(char* state, char* letter, char* state2);
 bool noArc(std::set<char*> states, std::set<char*> alphabet, std::set<char*> transitions);
 bool transitionExist(char* state, char* letter, std::set<char*> transitions);
 
-
-void freeSet(std::set<char*>& setA);
-
 std::set<char*> inputTransitionFunction(char* state, char* letter, std::set<char*>* finiteState);
 std::set<char*> lambdaClosure(char* tran, std::set<char*> transitions);
 std::set<char*> canReachLetter(char* letter, std::set<char*> reach, std::set<char*> transitions);
@@ -106,17 +103,6 @@ void removeNonDeterminism(std::set<char*>* finiteState){
 
 	finalStates(Q, finiteState);
 }
-
-
-void freeSet(set<char*>& setA){
-
-	set<char*>::iterator it;
-
-	for( it = setA.begin(); it != setA.end(); ++it){
-		delete(*it);
-	}
-}
-
 
 void finalStates(set<char*> Q, set<char*>* finiteState){
 

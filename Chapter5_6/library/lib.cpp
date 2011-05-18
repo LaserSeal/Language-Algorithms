@@ -295,3 +295,21 @@ set<char*> parseStateString(char* states){
 	return setStates;
 }
 
+
+void freeSet(set<char*>& setA){
+
+	set<char*>::iterator it;
+
+	for( it = setA.begin(); it != setA.end(); ++it){
+		delete(*it);
+	}
+}
+
+void freeVector(vector<char*>& vec){
+
+	vector<char*>::iterator it;
+
+	for( it = vec.begin(); it != vec.end(); ++it){
+		delete(*it);
+	}
+}

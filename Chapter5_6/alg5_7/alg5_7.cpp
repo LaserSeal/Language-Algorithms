@@ -1,7 +1,7 @@
 #include "finStateIO.h"
 #include "lib.h"
 
-typedef std::vector<std::vector<std::set<char*> > > setMatrix;
+//typedef std::vector<std::vector<std::set<char*> > > setMatrix;
 
 void alg5_7(char* pathIn, char* pathOut);
 void determinEquialentStates(std::set<char*>* finiteState);
@@ -11,6 +11,7 @@ setMatrix initS(int size);
 
 void displayD(int** D, int size);
 void displayS(setMatrix S, int size);
+
 
 
 using namespace std;
@@ -84,7 +85,7 @@ void determinEquialentStates(set<char*>* finiteState){
 	setMatrix S = initS(stateSize);
 	
 	displayD(D, stateSize);
-
+	displayS(S, stateSize);
 
 }
 
@@ -145,7 +146,25 @@ void displayD(int** D, int size){
 
 void displayS( setMatrix S, int size){
 
-	//TO-DO
+	set<char*>::iterator it;
+
+	for( int i = 0; i < size; i++){
+
+		for( int j = 0; j < size; j++){
+			if( i < j){
+				for( it = S[i][j].begin(); it != S[i][j].end(); it++){
+					cout << *it;
+				}
+			}
+			else{
+				cout << "-";
+			}	
+		}
+		cout << endl;
+
+	}
+
+
 
 
 
