@@ -40,14 +40,7 @@ void alg5_7(char* pathIn, char* pathOut){
 	set<char*> finiteState[4];
 	parseFiniteState(pathIn, finiteState);
 
-	//displaySet(inputTransitionFunction("q1", "b", finiteState));
-	
-	//displaySet(finiteState[TRANSITIONS]);
-
 	determinEquialentStates(finiteState);
-	
-	//outputFiniteState(pathOut, finiteState);
-
 
 	freeSet(finiteState[3]);
 	freeSet(finiteState[2]);
@@ -111,21 +104,26 @@ void determinEquialentStates(set<char*>* finiteState){
 
 	}	
 
-
+	// 3. for every pair i,j, i < j && D[i][j] == 0
 	for( qi = finiteState[STATES].begin(); qi != finiteState[STATES].end(); qi++){
 		i = atoi(*(qi)+1);
 		for( qj = finiteState[STATES].begin(); qj != finiteState[STATES].end(); qj++){
 			j = atoi(*(qj)+1);
 			if( i < j && D[i][j] == 0 ){
+				// If there exist an a (exist in) E such that d(qi, a) = qm, d(qj, a) = qn and
+				// D[m][n] == 1 or  D[n][m] == 1 then DIST(i,j)
 				if( equalTransitions(*qi, *qj, D, finiteState) ){
 					dist(i,j, D, S);	
 				}
-				else{
+				else{	
+					// Else for each a (exist in) E do: Let d(qi, a) = qm and d(qj, a) = qn
 					for(itAlph = finiteState[ALPHABET].begin(); itAlph != finiteState[ALPHABET].end(); itAlph++){
 						if( (qnm = sameLetterTran(*qi, *qj, *itAlph, finiteState[TRANSITIONS])) != NULL ){
+							// If m < n and [i,j] != [m,n] then add [i,j] to S[m,n]
 							if( qnm[0] < qnm[1] && i != qnm[0] && j != qnm[1] ){
 								addToS(S[qnm[0]][qnm[1]], i, j);
 							}
+							// Else if m > n and [i,j] != [n,m] then add [i,j] to S[n,m]
 							else if( qnm[0] > qnm[1] && i != qnm[1] && j != qnm[0]) {
 								addToS(S[qnm[1]][qnm[0]], i, j);
 							}
