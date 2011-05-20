@@ -12,7 +12,7 @@
 #define EMPTY_SET "0"
 #define NULL_CHAR "$"
 
-typedef std::vector<std::vector<std::set<char*> > > setMatrix;
+typedef std::vector<std::vector<std::set<int*> > > setMatrix;
 
 // Basic Set Functions
 bool member(std::set<char*> setA, char* data);

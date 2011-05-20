@@ -125,6 +125,7 @@ void parseLine(char* line, set<char*>* finiteState){
 	else{
 		getFinalStates(line, finiteState[FINAL]);
 	}
+
 }
 
 
@@ -178,10 +179,10 @@ bool getTransitions(char* line, std::set<char*>& transitions){
 	char* newTran = new char[MAX_TRAN_SIZE+1];
 	
 	if( *line != 'd' )
-		return false;
-	
+		return false;	
+		
 	strncpy(newTran, line, strlen(line)+1);
-	
+
 	insertIntoSet(transitions, newTran);	
 	
 	return true;

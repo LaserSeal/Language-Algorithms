@@ -11,13 +11,19 @@ void determinEquialentStates(std::set<char*>* finiteState);
 bool oneIsFinal(std::set<char*> final, char* qi, char* qj);
 
 void dist(int i, int j, int** D, setMatrix S);
-int* equalTransitions(char* qi, char* qj, std::set<char*>* finiteState);
+bool equalTransitions(char* qi, char* qj, int** D, std::set<char*>* finiteState);
+int* sameLetterTran(char* qi, char* qj, char* letter, std::set<char*> transitions);
+
+void addToS(std::set<int*>& S, int i, int j);
 
 int** initD(int size);
 setMatrix initS(int size);
 
+void freeSetMatrix(setMatrix S, int size);
+
 void displayD(int** D, int size);
 void displayS(setMatrix S, int size);
+
 
 
 using namespace std;
@@ -26,8 +32,6 @@ using namespace std;
 	alg5_6("dfa.txt", "dfaOut.txt");
 
 }*/
-
-
 
 
 
@@ -42,14 +46,13 @@ void alg5_7(char* pathIn, char* pathOut){
 
 	determinEquialentStates(finiteState);
 	
-	outputFiniteState(pathOut, finiteState);
+	//outputFiniteState(pathOut, finiteState);
 
 
-	freeSet(finiteState[0]);
-	freeSet(finiteState[1]);
-	freeSet(finiteState[2]);
 	freeSet(finiteState[3]);
-
+	freeSet(finiteState[2]);
+	freeSet(finiteState[1]);
+	freeSet(finiteState[0]);
 }
 
 
@@ -83,19 +86,18 @@ end
 */
 
 
-
 void determinEquialentStates(set<char*>* finiteState){
 
 	int stateSize = finiteState[STATES].size();
 	int** D = initD(stateSize);
 	int* qnm;
 	setMatrix S = initS(stateSize);
-	
-	set<char*>::iterator qi, qj;
+		
+	set<char*>::iterator qi, qj, itAlph;
 
 	int i,j;	
 
-	// For every pair, first is i
+	// For eery pair, first is i
 	for( qi = finiteState[STATES].begin(); qi != finiteState[STATES].end(); qi++){
 		i = atoi(*(qi)+1);
 		// This is the j pair
@@ -115,11 +117,24 @@ void determinEquialentStates(set<char*>* finiteState){
 		for( qj = finiteState[STATES].begin(); qj != finiteState[STATES].end(); qj++){
 			j = atoi(*(qj)+1);
 			if( i < j && D[i][j] == 0 ){
-				if( (qnm = equalTransitions(*qi, *qj, finiteState)) && D[qnm[0]][qnm[1]] == 1 || D[qnm[1]][qnm[0]] == 1){
-					//dist(i,j);
+				if( equalTransitions(*qi, *qj, D, finiteState) ){
+					dist(i,j, D, S);	
 				}
-				cout << '[' << i << "][" << j << ']' <<endl;
-				delete(qnm);				
+				else{
+					for(itAlph = finiteState[ALPHABET].begin(); itAlph != finiteState[ALPHABET].end(); itAlph++){
+						if( (qnm = sameLetterTran(*qi, *qj, *itAlph, finiteState[TRANSITIONS])) != NULL ){
+							if( qnm[0] < qnm[1] && i != qnm[0] && j != qnm[1] ){
+								addToS(S[qnm[0]][qnm[1]], i, j);
+							}
+							else if( qnm[0] > qnm[1] && i != qnm[1] && j != qnm[0]) {
+								addToS(S[qnm[1]][qnm[0]], i, j);
+							}
+							delete(qnm);
+						}
+						
+					}
+				}
+
 			}
 
 		}
@@ -133,6 +148,8 @@ void determinEquialentStates(set<char*>* finiteState){
 		delete(D[i]);
 	}
 	delete(D);
+
+	freeSetMatrix(S, stateSize);
 }
 
 
@@ -145,53 +162,78 @@ bool oneIsFinal(set<char*> final, char* qi, char* qj){
 
 
 
-int* equalTransitions(char* qi, char* qj, set<char*>* finiteState){
-	int* qnm = new int[2];
+bool equalTransitions(char* qi, char* qj, int** D, set<char*>* finiteState){
+	int* qnm;
 
-	vector<char*> splitTran;
 	set<char*>::iterator itAlph, itTran;
 
 	for( itAlph = finiteState[ALPHABET].begin(); itAlph != finiteState[ALPHABET].end(); itAlph++){
-		for( itTran = finiteState[TRANSITIONS].begin(); itTran != finiteState[TRANSITIONS].end(); itTran++){
-			splitTran = splitTransition(*itTran);
-			if( (strncmp(qi, splitTran[0], MAX_TRAN_SIZE) == 0)  && (strcmp(*itAlph, splitTran[1]) == 0)) {
-				cout << *itTran << endl;
+		if( (qnm = sameLetterTran(qi, qj, *itAlph, finiteState[TRANSITIONS])) != NULL){
+			if(D[qnm[0]][qnm[1]] == 1 || D[qnm[1]][qnm[0]] == 1){
+				delete(qnm);
+				return true;
 			}
-			freeVector(splitTran);
-		}	
 
-
-
-/*
-		for( itTran = finiteState[TRANSITIONS].begin(); itTran != finiteState[TRANSITIONS].end(); itTran++){
-
-
+			delete(qnm);
 		}
-*/
+	}
+	return false;
+}
+
+int* sameLetterTran(char* qi, char* qj, char* letter, set<char*> transitions){
+
+	set<char*>::iterator it;
+	vector<char*> splitTran;
+	
+	int* qnm = new int[2];
+	
+	qnm[0] = -1; qnm[1] = -1;
+
+	for( it = transitions.begin(); it != transitions.end(); it++){
+		splitTran = splitTransition(*it);
+		if( (strncmp(qi, splitTran[0], MAX_TRAN_SIZE) == 0)  && (strcmp(letter, splitTran[1]) == 0)) {
+			qnm[0] = atoi(splitTran[2]+1);
+		}
+		if( (strncmp(qj, splitTran[0], MAX_TRAN_SIZE) == 0) && (strcmp(letter, splitTran[1]) == 0)) {
+			qnm[1] = atoi(splitTran[2]+1);
+		}
+		freeVector(splitTran);
+	}
+	
+
+	if( qnm[0] == -1 || qnm[1] == -1 || qnm[0] == qnm[1] ){
+		delete(qnm);
+		return NULL;
 	}	
-	
-	qnm[0] = 1;
-	qnm[1] = 2;
-	
+
 	return qnm;
 
 }
 
 
 
-
-
-
 void dist(int i, int j, int** D, setMatrix S){
 
-	set<char*>::iterator it;
+	set<int*>::iterator it;
 
 	D[i][j] = 1;	
-
+	
 	for( it = S[i][j].begin(); it != S[i][j].end(); it++){
 		//TO DO
+		dist((*it)[0], (*it)[1], D, S);
 	}
 
+}
+
+
+
+void addToS(set<int*>& S, int i, int j){
+	int* tmp = new int[2];
+
+	tmp[0] = i;
+	tmp[1] = j;
+
+	S.insert(tmp);
 }
 
 int** initD(int size){
@@ -201,9 +243,9 @@ int** initD(int size){
 	for( int i = 0; i < size; i++){
 		D[i] = new int[size];
 		for( int j = 0; j < size; j++){
-			if( i < j ){
+		//	if( i < j ){
 				D[i][j] = 0;
-			}
+		//	}
 		}
 	
 	}
@@ -215,14 +257,14 @@ int** initD(int size){
 
 setMatrix initS(int size){
 	
-	setMatrix S;
-	
+	setMatrix S;	
+
 	S.resize(size);
 	for(int i = 0; i < size; i++){
 		S[i].resize(size);
 		for( int j = 0; j < size; j++){
 			if( i < j){
-				S[i][j].insert((char*)EMPTY_SET);
+			//	S[i][j].insert(tmp);
 			}
 		}
 	}	
@@ -250,18 +292,20 @@ void displayD(int** D, int size){
 
 void displayS( setMatrix S, int size){
 
-	set<char*>::iterator it;
+	set<int*>::iterator it;
 
 	for( int i = 0; i < size; i++){
 
 		for( int j = 0; j < size; j++){
 			if( i < j){
 				for( it = S[i][j].begin(); it != S[i][j].end(); it++){
-					cout << *it;
+					cout << '(' << (*it)[0] << ',' << (*it)[1] << "),";
+					
 				}
+				cout << '\t';
 			}
 			else{
-				cout << "-";
+				cout << "-\t";
 			}	
 		}
 		cout << endl;
@@ -274,3 +318,21 @@ void displayS( setMatrix S, int size){
 
 }
 
+
+
+void freeSetMatrix(setMatrix S, int size){
+
+	set<int*>::iterator it;
+
+	for( int i = 0; i < size; i++){
+		for( int j = 0; j < size; j++){
+			for( it = S[i][j].begin(); it != S[i][j].end(); it++){
+				delete(*it);
+			}
+		}
+
+	}
+	
+
+
+}

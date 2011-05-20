@@ -1,0 +1,16 @@
+d(q0, a) = q1
+d(q0, b) = q3
+d(q1, a) = q2
+d(q1, b) = q4
+d(q2, a) = q5
+d(q2, b) = q5
+d(q3, a) = q4
+d(q3, b) = q2
+d(q4, a) = q5
+d(q4, b) = q5
+d(q5, a) = q6
+d(q5, b) = q5
+d(q6, a) = q6
+d(q6, b) = q6
+
+F{q1,q3,q5,q6}

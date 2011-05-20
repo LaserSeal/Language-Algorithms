@@ -1,6 +1,16 @@
-d(q0, a) = q1
-d(q0, a) = q0
-d(q1, b) = q1
+d(q0, a) = q4
+d(q0, b) = q1
+d(q1, a) = q5
 d(q1, b) = q2
+d(q2, a) = q6
+d(q2, b) = q3
+d(q3, a) = q3
+d(q3, b) = q3
+d(q4, a) = q4
+d(q4, b) = q4
+d(q5, a) = q5
+d(q5, b) = q5
+d(q6, a) = q6
+d(q6, b) = q6
 
-F{q2}
+F{q4,q5,q6}

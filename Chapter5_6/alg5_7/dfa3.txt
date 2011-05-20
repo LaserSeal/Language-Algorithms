@@ -1,7 +1,14 @@
 d(q0, a) = q1
-d(q0, b) = q0
-d(q0, c) = q0
-d(q0, d) = q0
-d(q1, b) = q1
+d(q0, b) = q3
+d(q1, a) = q1
+d(q1, b) = q2
+d(q2, a) = q2
+d(q2, b) = q5
+d(q3, a) = q3
+d(q3, b) = q4
+d(q4, a) = q4
+d(q4, b) = q5
+d(q5, a) = q5
+d(q5, b) = q5
 
-F{q1}
+F{q5}
