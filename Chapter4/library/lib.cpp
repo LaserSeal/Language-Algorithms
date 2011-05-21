@@ -113,6 +113,19 @@ void insertIntoSet(std::set<char*>& set, char* data){
 }
 
 
+char* newProduction(char* variable, char* rule){
+
+	char* newPro = new char[MAX_RULE_SIZE+1];
+	
+	strncpy(newPro, variable, strnlen(variable, MAX_VAR_SIZE));
+	
+	strncat(newPro, " ", 1);
+	strncat(newPro, rule, strnlen(rule, MAX_RULE_SIZE));
+	
+	return newPro;
+}
+
+
 bool compareSets( set<char*> setA, set<char*> setB ){
 
         // check size of each first, its faster that way

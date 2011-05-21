@@ -1,20 +1,5 @@
-\documentclass{article}
-
-\usepackage[english]{babel}
-
-\begin{document}
-
-\begin{center}
-	\begin{tabular}{ | c | c | c | c | c | c |}
-	\hline
-	\{B0\} & \{\} & \{\} & \{\} & \{\} & \{\} \\ \hline
-	- & \{A0\} & \{X,S\} & \{\} & \{\} & \{\} \\ \hline
-	- & - & \{B0\} & \{\} & \{\} & \{\} \\ \hline
-	- & - & - & \{A0\} & \{X,S\} & \{\} \\ \hline
-	- & - & - & - & \{B0\} & \{\} \\ \hline
-	- & - & - & - & - & \{A0\} \\ \hline
-		\hline
-	\end{tabular}
-\end{center}
-
-\end{document}
+S -> 
+A0 -> 
+X -> 
+B0 -> 
+T0 -> 

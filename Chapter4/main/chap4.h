@@ -23,5 +23,6 @@ void alg4_5(char* pathIn, char* pathOut);
 // CYK Algorithm
 void alg4_6(char* pathIn, char* pathOut, char* input);
 
-
+// Removal of Direct Left Recursion
+void alg4_7(char* pathIn, char* pathOut);
 

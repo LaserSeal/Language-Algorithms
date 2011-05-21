@@ -8,15 +8,15 @@ int main(){
 
 	char gramIn[30] = "grammers/grammerA.txt";
 
-	char gramOutA[30] = "grammerA.txt";
-	char gramOutB[30] = "grammerB.txt";
+	char gramOutA[30] = "grammer3.txt";
+	char gramOutB[30] = "grammer3Out.txt";
 	
 	int i = 0;
 
-	char* test[10] = {"a", "aa", "aab", "baa", "aabb", "bbaa", "bbbaaa", "aaabbb", "abba", "bababa"};
+//	char* test[10] = {"a", "aa", "aab", "baa", "aabb", "bbaa", "bbbaaa", "aaabbb", "abba", "bababa"};
 
-	while(i < 10){
-		alg4_6(gramOutA, gramOutB, test[i++]);
+	while(i++ < 10){
+		alg4_7(gramOutA, gramOutB);//, test[i++]);
 	}
 
 /*

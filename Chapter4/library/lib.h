@@ -26,6 +26,8 @@ void diffSet(std::set<char*>& setA, std::set<char*> setB);
 char* insertVariable( std::set<char*>& variables, char* production);
 void insertIntoSet(std::set<char*>& set, char* data);
 
+char* newProduction(char* variable, char* rule);
+
 bool compareSets( std::set<char*> setA, std::set<char*> setB );
 
 // returns a pointer the rule of the production
