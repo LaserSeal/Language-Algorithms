@@ -5,8 +5,7 @@
 //typedef std::vector<std::vector<std::set<char*> > > setMatrix;
 
 void alg5_7(char* pathIn, char* pathOut);
-void determinEquialentStates(std::set<char*>* finiteState);
-
+void determinEquialentStates(std::set<char*>* finiteState, char* pathOut);
 
 bool oneIsFinal(std::set<char*> final, char* qi, char* qj);
 
@@ -21,6 +20,7 @@ setMatrix initS(int size);
 
 void freeSetMatrix(setMatrix S, int size);
 
+void outputD(char* pathOut, int** D, int size);
 void displayD(int** D, int size);
 void displayS(setMatrix S, int size);
 
@@ -40,7 +40,7 @@ void alg5_7(char* pathIn, char* pathOut){
 	set<char*> finiteState[4];
 	parseFiniteState(pathIn, finiteState);
 
-	determinEquialentStates(finiteState);
+	determinEquialentStates(finiteState, pathOut);
 
 	freeSet(finiteState[3]);
 	freeSet(finiteState[2]);
@@ -79,7 +79,7 @@ end
 */
 
 
-void determinEquialentStates(set<char*>* finiteState){
+void determinEquialentStates(set<char*>* finiteState, char* pathOut){
 
 	int stateSize = finiteState[STATES].size();
 	int** D = initD(stateSize);
@@ -138,8 +138,8 @@ void determinEquialentStates(set<char*>* finiteState){
 		}
 	}
 
-
-	displayD(D, stateSize);
+	outputD(pathOut, D, stateSize);
+	//displayD(D, stateSize);
 	displayS(S, stateSize);
 
 	for( i = 0; i < stateSize; i++){	
@@ -272,6 +272,33 @@ setMatrix initS(int size){
 
 }
 
+
+void outputD(char* pathOut, int** D, int size){
+
+	char outputStream[MAX_FILE_SIZE] = "";
+	char* ptr = outputStream;
+
+	for( int i = 0; i < size; i++){
+		for( int j = 0; j < size; j++){
+			if( i < j){
+				*(ptr++) = (char)(((int)'0')+D[i][j]);
+				*(ptr++) = ' ';
+			}
+			else{
+				*(ptr++) = '-';
+				*(ptr++) = ' ';
+
+			}
+		}
+		strncat(outputStream, "\n", 1);
+		ptr++; 
+	}
+	
+	*(--ptr) = '\0';
+
+	sendStream(pathOut, outputStream);
+}
+
 void displayD(int** D, int size){
 
 	for( int i = 0; i < size; i++){
@@ -309,11 +336,6 @@ void displayS( setMatrix S, int size){
 		cout << endl;
 
 	}
-
-
-
-
-
 }
 
 
