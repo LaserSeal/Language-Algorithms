@@ -66,3 +66,5 @@ int isVariable( char* var );
 // and puts it into a vector
 std::vector<char*> splitProduction(char* production);
 char* flattenProductVector(std::vector<char*> splitRule);
+
+void freeSet(std::set<char*>& setA);

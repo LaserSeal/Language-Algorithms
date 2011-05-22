@@ -1,2 +1,2 @@
-A -> AB | BA | a
+A -> AAB | BA | a
 B -> b | c

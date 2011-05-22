@@ -116,8 +116,8 @@ void insertIntoSet(std::set<char*>& set, char* data){
 char* newProduction(char* variable, char* rule){
 
 	char* newPro = new char[MAX_RULE_SIZE+1];
-	
-	strncpy(newPro, variable, strnlen(variable, MAX_VAR_SIZE));
+
+	strncpy(newPro, variable, strnlen(variable, MAX_VAR_SIZE)+1);
 	
 	strncat(newPro, " ", 1);
 	strncat(newPro, rule, strnlen(rule, MAX_RULE_SIZE));
@@ -329,4 +329,13 @@ vector<char*> splitProduction(char* production){
 	return proVec;
 }
 
+
+void freeSet(set<char*>& setA){
+	
+	set<char*>::iterator it;
+
+	for( it = setA.begin(); it != setA.end(); ++it){
+		delete(*it);
+	}
+}
 

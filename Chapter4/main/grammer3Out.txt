@@ -1,4 +1,3 @@
-A -> 
-B -> 
-Z -> 
-Z6 -> 
+A -> BAZ | a | aZ | BA
+Z -> ABZ | AB
+B -> c | b

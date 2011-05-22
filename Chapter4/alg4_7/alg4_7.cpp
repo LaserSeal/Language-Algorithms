@@ -6,6 +6,8 @@
 
 void removeDirectLeftRec(std::set<char*>* grammer, std::set<char*>* newGrammer, char* variable);
 
+bool isDLR(std::set<char*>* grammer, char* var);
+
 char* generateNewVar(std::set<char*> variables);
 
 using namespace std;
@@ -23,14 +25,24 @@ void alg4_7(char* pathIn, char* pathOut){
 	unionSet(newGrammer[VARIABLES], grammer[VARIABLES]);
 	unionSet(newGrammer[START], grammer[START]);
 
-	for( it = grammer[VARIABLES].begin(); it != grammer[VARIABLES].end(); it++){
+	for( it = grammer[VARIABLES].begin(); it != grammer[VARIABLES].end(); it++){	
 		removeDirectLeftRec(grammer, newGrammer, *it); 
 	}
 
-	//displayGrammer(newGrammer);
+	displayGrammer(newGrammer);
 	
 
 	outputGrammer(pathOut, newGrammer);
+
+	freeSet(grammer[3]);
+	freeSet(grammer[2]);
+	freeSet(grammer[1]);
+	freeSet(grammer[0]);
+//	freeSet(newGrammer[3]);
+	freeSet(newGrammer[2]);
+//	freeSet(newGrammer[1]);
+//	freeSet(newGrammer[0]);
+
 }
 
 /* Removal of Direct Left Recusion
@@ -79,26 +91,88 @@ void removeDirectLeftRec(set<char*>* grammer, set<char*>* newGrammer, char* vari
 	char* newVar = generateNewVar(newGrammer[VARIABLES]);
 	char* newRule;
 	char* tmp;
+	int oldRuleSize = newGrammer[RULES].size();
 	int size;
 
-	insertIntoSet(newGrammer[VARIABLES], newVar);
+	if( isDLR(grammer, variable) ){
+		insertIntoSet(newGrammer[VARIABLES], newVar);
+	
+		for( itPro = grammer[RULES].begin(); itPro != grammer[RULES].end(); ++itPro){
+			if( varEqual(variable, *itPro) ){
+				rulePtr = getRulePtr(*itPro);
+				// If a rule is direct left recurisve
+				if( (size = isVariable(rulePtr)) && (strncmp(variable, rulePtr, size)) == 0 ){		
+					// First one for Z -> u1 | ... | uj
+					tmp = new char[MAX_RULE_SIZE+1];
+					// rulePtr+size skips the recusive variable 
+					strncpy(tmp, (rulePtr+size), strnlen(rulePtr, MAX_RULE_SIZE)); 
+					newRule = newProduction(newVar, tmp);
+					
+					delete(tmp);
 
-	for( itPro = grammer[RULES].begin(); itPro != grammer[RULES].end(); ++itPro){
-		if( varEqual(variable, *itPro) ){
-			rulePtr = getRulePtr(*itPro);
-			// If a rule is direct left recurisve
-			if( (size = isVariable(rulePtr)) && (strncmp(variable, rulePtr, size)) == 0 ){	
-				tmp = new char[MAX_RULE_SIZE+1];
-				// Skips the inital 
-				strncpy(tmp, (rulePtr+size), strnlen(rulePtr, MAX_RULE_SIZE)); 
-				//tmp = newProductionRule(newVar, 		
-				cout << *itPro << endl;
-			} 		
+					// Now need to make new memory for the Z -> Au1 | ... | Auj
+					tmp = new char[MAX_RULE_SIZE+1];
+					strncpy(tmp, newRule, MAX_RULE_SIZE);
+					
+					// Insert the u1 | ... | uj rule, since this can delete the pointer
+					// we need to make sure we copy it into a tmp first 
+					insertIntoSet(newGrammer[RULES], newRule);  
+				
+					// Now add the newVar on to u1 | ... | uj such that Z -> u1Z | ... | ujZ	
+					strncat(tmp, newVar, MAX_VAR_SIZE);	
+						
+					//Puts the new rule into the RULES, it will take care of
+					//the delete if it is already in RULES	
+					insertIntoSet(newGrammer[RULES], tmp);
+				} 
+				// It is a non-DLR rule
+				else{
+					newRule = new char[MAX_RULE_SIZE+1];		
+					strncpy(newRule, *itPro, MAX_RULE_SIZE+1);
+					
+					tmp = new char[MAX_RULE_SIZE+1];
+					strncpy(tmp, newRule, MAX_RULE_SIZE+1);
+					strncat(tmp, newVar, MAX_VAR_SIZE);
+		
+
+					insertIntoSet(newGrammer[RULES], newRule);
+					insertIntoSet(newGrammer[RULES], tmp);
+				}
+			}
+
+		}
+
+	}
+	else{
+		for( itPro = grammer[RULES].begin(); itPro != grammer[RULES].end(); ++itPro){
+			if( varEqual(variable, *itPro) ){
+				newRule = new char[MAX_RULE_SIZE+1];
+				strncpy(newRule, *itPro, MAX_RULE_SIZE+1);
+				insertIntoSet(newGrammer[RULES], newRule);
+			}	
 		}
 	}
 
-	cout << newVar << endl;	
+}
+// Use this to tell if a grammer is DLR 
+bool isDLR(set<char*>* grammer, char* var){
 
+	set<char*>::iterator it;
+	char* rulePtr;
+	int size;
+	
+	for( it = grammer[RULES].begin(); it != grammer[RULES].end(); ++it){
+		rulePtr = getRulePtr(*it);
+		if( varEqual(var, *it) ){
+			if( (size = isVariable(rulePtr)) && strncmp(var, rulePtr, size) == 0) {
+				return true;
+			}
+		}
+
+	}
+
+	return false;
+	
 }
 
 
@@ -112,7 +186,7 @@ char* generateNewVar(set<char*> variables){
 	while( member(variables, newVar) && strnlen(newVar, MAX_VAR_SIZE) <= MAX_VAR_SIZE){
 		random = (rand() % 10);
 		*(ptr++) = (char)(((int)'0')+random);
-		*(ptr++) = '\0';
+		*(ptr) = '\0';
 	}
 	
 	return newVar;
