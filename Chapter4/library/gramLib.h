@@ -14,6 +14,9 @@ typedef std::vector<std::vector<std::set<char*> > > setMatrix;
 
 #define NULL_CHAR "$"
 
+#ifndef __LIB_H
+#define __LIB_H
+
 // Basic Set Functions
 bool member(std::set<char*> setA, char* data);
 void unionSet(std::set<char*>& setA, std::set<char*> setB);
@@ -21,14 +24,32 @@ void interSet(std::set<char*>& setA, std::set<char*> setB);
 void diffSet(std::set<char*>& setA, std::set<char*> setB);
 // --- End of set funcs
 
-// Takes a production rule and takes the variable off it and 
-// inserts it into the set.
-char* insertVariable( std::set<char*>& variables, char* production);
 void insertIntoSet(std::set<char*>& set, char* data);
+
+bool compareSets( std::set<char*> setA, std::set<char*> setB );
+
+void displaySet(std::set<char*> setA);
+
+bool isDigit( char digit );
+bool isCapChar( char letter );
+bool isLowChar( char letter );
+
+// Both of these return 0 if no terminal or var is found
+// otherwise it returns the size of the term or var in the 
+// char*
+
+/*NULL_CHAR IS NOT A TERMINAL, NEED TO FIX THIS */
+int isTerminal( char* term );
+int isVariable( char* var );
+#endif
+
+
 
 char* newProduction(char* variable, char* rule);
 
-bool compareSets( std::set<char*> setA, std::set<char*> setB );
+// Takes a production rule and takes the variable off it and 
+// inserts it into the set.
+char* insertVariable( std::set<char*>& variables, char* production);
 
 // returns a pointer the rule of the production
 char* getRulePtr(char* production);
@@ -43,20 +64,8 @@ int varEqual(char* var, char* proVar);
 int variableLen( char* production );
 
 void displayGrammer(std::set<char*>* grammer);
-void displaySet(std::set<char*> setA);
-
-bool isDigit( char digit );
-bool isCapChar( char letter );
-bool isLowChar( char letter );
-
-// Both of these return 0 if no terminal or var is found
-// otherwise it returns the size of the term or var in the 
-// char*
 
 
-/*NULL_CHAR IS NOT A TERMINAL, NEED TO FIX THIS */
-int isTerminal( char* term );
-int isVariable( char* var );
 
 
 //************************************************************
@@ -66,9 +75,6 @@ int isVariable( char* var );
 // and puts it into a vector
 std::vector<char*> splitProduction(char* production);
 char* flattenProductVector(std::vector<char*> splitRule);
-
-void freeSet(std::set<char*>& setA);
-
 
 #ifndef __FREE_H
 #define __FREE_H
