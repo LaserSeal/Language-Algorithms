@@ -1,5 +1,5 @@
 #include "finStateIO.h"
-#include "lib.h"
+#include "finLib.h"
 #include <stdlib.h>
 
 //typedef std::vector<std::vector<std::set<char*> > > setMatrix;

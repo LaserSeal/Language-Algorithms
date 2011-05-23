@@ -1,5 +1,5 @@
 #include "finStateIO.h"
-#include "lib.h"
+#include "finLib.h"
 
 /*
 M = {Q, E, D, q0, F}

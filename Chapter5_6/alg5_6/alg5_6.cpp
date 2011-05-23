@@ -1,5 +1,5 @@
 #include "finStateIO.h"
-#include "lib.h"
+#include "finLib.h"
 
 void alg5_6(char* pathIn, char* pathOut);
 void removeNonDeterminism(std::set<char*>* finiteState);

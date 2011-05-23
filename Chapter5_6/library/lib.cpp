@@ -4,7 +4,7 @@
 // -Created: 5/08/11
 // -File Name: lib.cpp 
 //##########################################
-#include "lib.h"
+#include "finLib.h"
 #include "finStateIO.h"
 #include <vector>
 

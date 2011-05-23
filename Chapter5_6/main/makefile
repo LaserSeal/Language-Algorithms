@@ -1,9 +1,7 @@
 OBJS = $(MAIN).o alg5_6.o alg5_7.o lib.o finiteStateIO.o
 MAIN = main
 
-all: remove compile
-
-new: compile
+all: clean compile
 
 compile: $(OBJS)
 	g++ $(OBJS) -o test 
