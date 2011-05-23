@@ -68,3 +68,18 @@ std::vector<char*> splitProduction(char* production);
 char* flattenProductVector(std::vector<char*> splitRule);
 
 void freeSet(std::set<char*>& setA);
+
+
+#ifndef __FREE_H
+#define __FREE_H
+
+template <class T>
+inline void freeCont(T& cont){
+	typename T::iterator it;
+
+	for( it = cont.begin(); it != cont.end(); it++){
+		delete(*it);
+	}
+}
+
+#endif

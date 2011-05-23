@@ -1,5 +1,3 @@
-#include "lib.h"
-#include "gramIO.h"
 
 
 // remove recusive start symbols

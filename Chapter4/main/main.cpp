@@ -1,4 +1,4 @@
-#include "lib.h"
+#include "gramLib.h"
 #include "gramIO.h"
 #include "chap4.h"
 
@@ -15,7 +15,7 @@ int main(){
 
 //	char* test[10] = {"a", "aa", "aab", "baa", "aabb", "bbaa", "bbbaaa", "aaabbb", "abba", "bababa"};
 
-	while(i++ < 1000){
+	while(i++ < 1000 ){
 		alg4_7(gramOutA, gramOutB);//, test[i++]);
 	}
 

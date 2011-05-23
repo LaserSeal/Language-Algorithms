@@ -1,7 +1,7 @@
 #include <set>
 #include <iostream>
 #include <stdio.h>
-#include "lib.h"
+#include "gramLib.h"
 #include "gramIO.h"
 #include "../main/chap4.h"
 

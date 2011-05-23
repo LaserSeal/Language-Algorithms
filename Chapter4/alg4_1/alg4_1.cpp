@@ -1,5 +1,5 @@
 #include "gramIO.h"
-#include "lib.h"
+#include "gramLib.h"
 #include "../main/chap4.h"
 
 

@@ -1,5 +1,5 @@
 #include "gramIO.h"
-#include "lib.h"
+#include "gramLib.h"
 #include "../main/chap4.h"
 #include <stdlib.h>
 #include <time.h>
@@ -34,14 +34,14 @@ void alg4_7(char* pathIn, char* pathOut){
 
 	outputGrammer(pathOut, newGrammer);
 
-	freeSet(grammer[3]);
-	freeSet(grammer[2]);
-	freeSet(grammer[1]);
-	freeSet(grammer[0]);
-//	freeSet(newGrammer[3]);
-	freeSet(newGrammer[2]);
-//	freeSet(newGrammer[1]);
-//	freeSet(newGrammer[0]);
+	freeCont(grammer[3]);
+	freeCont(grammer[2]);
+	freeCont(grammer[1]);
+	freeCont(grammer[0]);
+//	freeCont(newGrammer[3]);
+	freeCont(newGrammer[2]);
+//	freeCont(newGrammer[1]);
+//	freeCont(newGrammer[0]);
 
 }
 

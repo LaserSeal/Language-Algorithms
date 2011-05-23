@@ -1,9 +1,7 @@
 OBJS = $(MAIN).o alg4_1.o alg4_2.o alg4_3.o alg4_4_2.o alg4_4_4.o alg4_5.o alg4_6.o alg4_7.o latexTable.o lib.o grammerIO.o
 MAIN = main
 
-all: remove compile
-
-new: compile
+all: clean compile
 
 compile: $(OBJS)
 	g++ $(OBJS) -o test 

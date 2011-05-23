@@ -1,4 +1,4 @@
-#include "lib.h"
+#include "gramLib.h"
 #include "gramIO.h"
 
 void alg4_4_4(char* pathIn, char* pathOut);

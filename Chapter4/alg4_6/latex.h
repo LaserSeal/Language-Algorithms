@@ -1,4 +1,4 @@
-#include "lib.h"
+#include "gramLib.h"
 #include "gramIO.h"
 
 
