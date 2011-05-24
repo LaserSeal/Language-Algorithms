@@ -39,7 +39,6 @@ int readFile(char* path, char* file){
 	int length;
 	ifstream is;
 
-
 	is.open(path);
 	
 	if( is.is_open() && is.good()){
@@ -204,9 +203,13 @@ void outputGrammer( char* file, set<char*>* grammer){
 	
 	set<char*>::iterator itVar;
 	char* start = *(grammer[START].begin());
-	char outputStream[MAX_FILE_SIZE] = "";
+	char outputStream[MAX_FILE_SIZE*4] = "";
+
 
 	insertStart(grammer, outputStream);
+
+	
+
 
 		
 	// Iterates through the variables then goes to insertRules to get the productions rules for each
@@ -218,8 +221,10 @@ void outputGrammer( char* file, set<char*>* grammer){
 			insertRules( *itVar, grammer[RULES], outputStream);
 			strncat(outputStream, "\n", 1);
 		}
-	}	
+	}
+
 	sendStream( file, outputStream );
+	
 
 /*
 	grammer[3].clear();

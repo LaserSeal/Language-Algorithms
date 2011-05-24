@@ -17,23 +17,37 @@ std::set<char*> lemma4_1_3(char* production, std::set<char*>& rules);
 using namespace std;
 void alg4_8(char* pathIn, char* pathOut){
 
+
 	srand( time(NULL) );
 
 	set<char*> grammer[4];
-	//alg4_5(pathIn, pathIn);
+	
 	alg4_7(pathIn, pathIn);
 
 	parseGrammer(pathIn, grammer);		
 
 
-//	alg4_7_GNF(grammer, "A");
-
 	convertToGBN(grammer);
 
 	displayGrammer(grammer);
+	
+	
+	set<char*>::iterator it, it2;
+	int tmp = 0;
+	
 
+	for( it = grammer[VARIABLES].begin(); it != grammer[VARIABLES].end(); ++it){
+		for( it2 = grammer[RULES].begin(); it2 != grammer[RULES].end(); ++it2){
+			if( varEqual(*it, *it2) ){
+				tmp++;
+			}
+		}
+		cout << "Var: " << *it << " has " << tmp << " rules" << endl;
+		tmp = 0;
+	}
+	
 
-//	outputGrammer(pathOut, grammer);
+	outputGrammer(pathOut, grammer);
 
 
 	freeCont(grammer[3]);
@@ -103,7 +117,6 @@ void convertToGBN(set<char*>* grammer){
 		curVar = numbers[i];
 		for( itPro = grammer[RULES].begin(); itPro != end ;){
 			if( varEqual(curVar, *itPro) && ruleViolation(*itPro, numbers)){
-				cout << "Current Var: " << curVar << ", i: " << i << endl;
 				tmp = itPro;
 				++itPro;
 				unionSet(newRules, lemma4_1_3(*tmp, grammer[RULES]));
@@ -196,7 +209,9 @@ void assignNumbers(set<char*> variables, char* start,  map<int, char*>& numbers)
 	numbers.insert(std::pair<int, char*>(2,"A"));
 	numbers.insert(std::pair<int, char*>(3,"B"));
 	numbers.insert(std::pair<int, char*>(4,"C"));
-*/	numbers.insert(std::pair<int, char*>(1,start));
+	numbers.insert(std::pair<int, char*>(5,"D"));
+*/
+	numbers.insert(std::pair<int, char*>(1,start));
 
 	for( itVar = variables.begin(); itVar != variables.end(); ++itVar){
 		if( strncmp( *itVar, start, MAX_VAR_SIZE) != 0 ){
