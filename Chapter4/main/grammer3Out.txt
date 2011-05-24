@@ -1,3 +1,6 @@
-A -> BAZ | BA | a | aZ
-B -> c | b
-Z -> ABZ | AB
+S -> AB | $
+C -> AC | c
+Z -> BZ | B
+B -> b | AB
+A -> a | aZ2 | cB | cBZ2 | cBZ | cBZZ2 | aZ | aZZ2
+Z2 -> CBZ2 | CB | CBZZ2 | CBZ

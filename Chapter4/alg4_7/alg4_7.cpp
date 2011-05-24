@@ -28,8 +28,6 @@ void alg4_7(char* pathIn, char* pathOut){
 	for( it = grammer[VARIABLES].begin(); it != grammer[VARIABLES].end(); it++){	
 		removeDirectLeftRec(grammer, newGrammer, *it); 
 	}
-
-	displayGrammer(newGrammer);
 	
 
 	outputGrammer(pathOut, newGrammer);
@@ -42,6 +40,34 @@ void alg4_7(char* pathIn, char* pathOut){
 	freeCont(newGrammer[2]);
 //	freeCont(newGrammer[1]);
 //	freeCont(newGrammer[0]);
+
+}
+
+// This function is for GNF, since it has
+// to check if any of the new rules have DLR
+// This way I can modifiy the grammer on the fly
+void alg4_7_GNF(set<char*>* grammer, char* var){
+	set<char*> newGrammer[4];
+	set<char*>::iterator it, tmp;	
+
+	unionSet(newGrammer[VARIABLES], grammer[VARIABLES]);
+	//for( it = grammer[VARIABLES].begin(); it != grammer[VARIABLES].end(); ++it){
+	removeDirectLeftRec(grammer, newGrammer, var);
+	//}
+
+	for( it = grammer[RULES].begin(); it != grammer[RULES].end(); ){
+		if( varEqual( var, *it ) ){
+			tmp = it;
+			++it;
+			grammer[RULES].erase(tmp);
+		}
+		else{
+			++it;
+		}
+	}
+
+	unionSet(grammer[RULES], newGrammer[RULES]);
+	unionSet(grammer[VARIABLES], newGrammer[VARIABLES]);
 
 }
 

@@ -4,7 +4,7 @@ MAIN = main
 all: clean compile
 
 compile: $(OBJS)
-	g++ $(OBJS) -o test 
+	g++ $(OBJS) -o algorithms
 
 $(MAIN).o:
 	g++ -c $(MAIN).cpp

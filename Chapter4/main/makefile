@@ -1,4 +1,4 @@
-OBJS = $(MAIN).o alg4_1.o alg4_2.o alg4_3.o alg4_4_2.o alg4_4_4.o alg4_5.o alg4_6.o alg4_7.o latexTable.o gramLib.o grammerIO.o
+OBJS = $(MAIN).o alg4_1.o alg4_2.o alg4_3.o alg4_4_2.o alg4_4_4.o alg4_5.o alg4_6.o alg4_7.o alg4_8.o latexTable.o gramLib.o grammerIO.o
 MAIN = main
 
 all: clean compile
@@ -32,6 +32,9 @@ alg4_6.o:
 
 alg4_7.o:
 	g++ -c ../alg4_7/alg4_7.cpp
+
+alg4_8.o:
+	g++ -c ../alg4_8/alg4_8.cpp
 
 latexTable.o:
 	g++ -c ../alg4_6/latexTable.cpp
