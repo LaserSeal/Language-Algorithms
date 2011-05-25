@@ -15,9 +15,10 @@ int main(){
 	char buf[80];	
 
 	while( (fgets(buf, 80, stdin)) != NULL ){
-			line = strtok_r(buf, " \n", &p);
+			line = strtok_r(buf, " ", &p);
 			checkCommand(line, p);	
-/*			while(line){
+/*			
+			while(line){
 				line = strtok_r(NULL, " \n", &p);
 			}	*/
 	}
@@ -26,12 +27,23 @@ int main(){
 }
 
 
-void checkCommand(char* buf, char* ptr){
+void checkCommand(char* buf, char* p){
 
+	char* ptr;
 
 	if( strncmp( buf, ":help", 5) == 0 ){
 		cout << "help entered" << endl;
 	}
+	else if( strncmp( buf, ":alg", 4) == 0 ){
+		ptr = (buf+4);
+		cout << ptr << endl;
 
+	}
+	else if( strncmp( buf, ":quit", 5) == 0 || strncmp( buf, ":q", 2) == 0 ){
+		cout << "haha you want to quit" << endl;
+	}
+	else{
+		cout << "here" << endl;
+	}
 
 }
