@@ -16,7 +16,7 @@ int main(){
 //	char* test[10] = {"a", "aa", "aab", "baa", "aabb", "bbaa", "bbbaaa", "aaabbb", "abba", "bababa"};
 
 	while(i++ < 1 ){
-		alg4_7(gramOutA, gramOutB);//, test[i++]);
+		alg4_8(gramOutA, gramOutB);//, test[i++]);
 	}
 
 /*

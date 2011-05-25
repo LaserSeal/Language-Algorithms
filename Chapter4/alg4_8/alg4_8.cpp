@@ -27,10 +27,7 @@ void alg4_8(char* pathIn, char* pathOut){
 	parseGrammer(pathIn, grammer);		
 
 
-	convertToGBN(grammer);
-
-	displayGrammer(grammer);
-	
+	convertToGBN(grammer);	
 	
 	set<char*>::iterator it, it2;
 	int tmp = 0;
@@ -48,7 +45,6 @@ void alg4_8(char* pathIn, char* pathOut){
 	
 
 	outputGrammer(pathOut, grammer);
-
 
 	freeCont(grammer[3]);
 	freeCont(grammer[2]);
@@ -84,8 +80,6 @@ void convertToGBN(set<char*>* grammer){
 	map<int, char*> numbers;
 	
 	assignNumbers(grammer[VARIABLES], *(grammer[START].begin()), numbers);
-
-
 
 	/* 
 
@@ -161,7 +155,8 @@ void convertToGBN(set<char*>* grammer){
 
 	
 	map<int, char*>::iterator it;
-	
+
+	cout << "Mapping of the Variables:" << endl;	
 	for( it = numbers.begin(); it != numbers.end(); ++it){
 		cout << it->first << " | " << it->second << endl;
 	}
@@ -187,9 +182,6 @@ bool ruleViolation(char* production, map<int, char*> numbers){
 			ruleVarNum = it->first;
 		}
 	}
-	
-//	cout << production << " [cur] " << curVarNum << endl;
-//	cout << rulePtr << " [rule] " << ruleVarNum << endl;
 
 	*tmpNull = ' ';
 	if( curVarNum > ruleVarNum ){
@@ -260,7 +252,6 @@ set<char*> lemma4_1_3(char* production, set<char*>& rules){
 	}
 	// The union happens by just removing the old rule and inserting the new rules
 
-//	displaySet(newRules);
 	return newRules;
 }
 

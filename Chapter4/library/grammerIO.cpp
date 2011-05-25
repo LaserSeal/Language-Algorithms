@@ -205,12 +205,7 @@ void outputGrammer( char* file, set<char*>* grammer){
 	char* start = *(grammer[START].begin());
 	char outputStream[MAX_FILE_SIZE*4] = "";
 
-
 	insertStart(grammer, outputStream);
-
-	
-
-
 		
 	// Iterates through the variables then goes to insertRules to get the productions rules for each
 	// variable
@@ -225,12 +220,6 @@ void outputGrammer( char* file, set<char*>* grammer){
 
 	sendStream( file, outputStream );
 	
-
-/*
-	grammer[3].clear();
-	grammer[2].clear();
-	grammer[1].clear();
-	grammer[0].clear();*/
 }
 
 
