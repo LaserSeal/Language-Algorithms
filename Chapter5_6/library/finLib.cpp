@@ -313,3 +313,6 @@ void freeVector(vector<char*>& vec){
 		delete(*it);
 	}
 }
+
+
+

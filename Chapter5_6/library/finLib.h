@@ -65,3 +65,13 @@ std::set<char*> parseStateString(char* states);
 
 void freeSet(std::set<char*>& setA);
 void freeVector(std::vector<char*>& vec);
+
+template <class T>
+inline void freeCont(T& cont){
+	
+	typename T::iterator it;
+
+	for( it = cont.begin(); it != cont.end(); it++){
+		delete(*it);
+	}
+}

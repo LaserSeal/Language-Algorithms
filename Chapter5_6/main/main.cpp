@@ -6,8 +6,8 @@ using namespace std;
 int main(){
 
 	int i = 0;
-	while(i++ < 10000){
-		alg5_7("../alg5_7/dfa.txt", "here.txt");
+	while(i++ < 1000){
+		alg6_2("dfa2.txt", "here.txt");
 	}
 	cout << "--END--" << endl;
 

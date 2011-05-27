@@ -1,4 +1,4 @@
-OBJS = $(MAIN).o alg5_6.o alg5_7.o finLib.o finiteStateIO.o
+OBJS = $(MAIN).o alg5_6.o alg5_7.o alg6_2.o finLib.o finiteStateIO.o
 MAIN = main
 
 all: clean compile
@@ -14,6 +14,9 @@ alg5_6.o:
 
 alg5_7.o:
 	g++ -c ../alg5_7/alg5_7.cpp
+
+alg6_2.o:
+	g++ -c ../alg6_2/alg6_2.cpp
 
 finLib.o:
 	g++ -c ../library/finLib.cpp
