@@ -1,5 +1,6 @@
 #include "finStateIO.h"
 #include "finLib.h"
+#include "lib.h"
 #include <stdlib.h>
 
 //typedef std::vector<std::vector<std::set<char*> > > setMatrix;
@@ -18,7 +19,7 @@ void addToS(std::set<int*>& S, int i, int j);
 int** initD(int size);
 setMatrix initS(int size);
 
-void freeSetMatrix(setMatrix S, int size);
+void freeContMatrix(setMatrix S, int size);
 
 void outputD(char* pathOut, int** D, int size);
 void displayD(int** D, int size);
@@ -42,10 +43,10 @@ void alg5_7(char* pathIn, char* pathOut){
 
 	determinEquialentStates(finiteState, pathOut);
 
-	freeSet(finiteState[3]);
-	freeSet(finiteState[2]);
-	freeSet(finiteState[1]);
-	freeSet(finiteState[0]);
+	freeCont(finiteState[3]);
+	freeCont(finiteState[2]);
+	freeCont(finiteState[1]);
+	freeCont(finiteState[0]);
 }
 
 
@@ -147,7 +148,7 @@ void determinEquialentStates(set<char*>* finiteState, char* pathOut){
 	}
 	delete(D);
 
-	freeSetMatrix(S, stateSize);
+	freeContMatrix(S, stateSize);
 }
 
 
@@ -195,7 +196,7 @@ int* sameLetterTran(char* qi, char* qj, char* letter, set<char*> transitions){
 		if( (strncmp(qj, splitTran[0], MAX_TRAN_SIZE) == 0) && (strcmp(letter, splitTran[1]) == 0)) {
 			qnm[1] = atoi(splitTran[2]+1);
 		}
-		freeVector(splitTran);
+		freeCont(splitTran);
 	}
 	
 
@@ -296,7 +297,7 @@ void outputD(char* pathOut, int** D, int size){
 	
 	*(--ptr) = '\0';
 
-	sendStream(pathOut, outputStream);
+	sendOutputStream(pathOut, outputStream);
 }
 
 void displayD(int** D, int size){
@@ -340,7 +341,7 @@ void displayS( setMatrix S, int size){
 
 
 
-void freeSetMatrix(setMatrix S, int size){
+void freeContMatrix(setMatrix S, int size){
 
 	set<int*>::iterator it;
 

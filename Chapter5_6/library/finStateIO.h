@@ -17,7 +17,7 @@
 #define MAX_STATE_SIZE 8
 
 void outputFiniteState(char* outPath, std::set<char*>* finiteState);
-void sendStream(char* pathOut, char* outputStream);
+void sendOutputStream(char* pathOut, char* outputStream);
 
 
 void parseFiniteState(char* path, std::set<char*>* fininteState);

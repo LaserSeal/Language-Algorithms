@@ -1,5 +1,6 @@
 #include "gramIO.h"
 #include "gramLib.h"
+#include "lib.h"
 #include "../main/chap4.h"
 #include <stdlib.h>
 #include <time.h>
@@ -51,9 +52,8 @@ void alg4_7_GNF(set<char*>* grammer, char* var){
 	set<char*>::iterator it, tmp;	
 
 	unionSet(newGrammer[VARIABLES], grammer[VARIABLES]);
-	//for( it = grammer[VARIABLES].begin(); it != grammer[VARIABLES].end(); ++it){
+
 	removeDirectLeftRec(grammer, newGrammer, var);
-	//}
 
 	for( it = grammer[RULES].begin(); it != grammer[RULES].end(); ){
 		if( varEqual( var, *it ) ){
@@ -68,6 +68,8 @@ void alg4_7_GNF(set<char*>* grammer, char* var){
 
 	unionSet(grammer[RULES], newGrammer[RULES]);
 	unionSet(grammer[VARIABLES], newGrammer[VARIABLES]);
+
+	displaySet(grammer[RULES]);
 
 }
 

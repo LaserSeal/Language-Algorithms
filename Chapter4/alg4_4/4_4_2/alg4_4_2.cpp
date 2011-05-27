@@ -1,5 +1,6 @@
 #include "gramLib.h"
 #include "gramIO.h"
+#include "lib.h"
 #include "../../main/chap4.h"
 
 void removeUselessVar( std::set<char*> usefulVar, std::set<char*>* grammer);

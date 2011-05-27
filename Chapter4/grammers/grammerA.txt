@@ -1,8 +1,4 @@
-S -> aS | AB | AC
+S -> AC | AB | aS
+B -> bB | bS
 A -> aA | $
-B -> bB | bS 
 C -> cC | $
-
-
-
-

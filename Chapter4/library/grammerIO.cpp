@@ -6,7 +6,7 @@
 //##########################################
 #include "gramLib.h"
 #include "gramIO.h"
-
+#include "lib.h"
 
 using namespace std;
 

@@ -1,4 +1,4 @@
-
+#include <set>
 
 // remove recusive start symbols
 void alg4_1(char* pathIn, char* pathOut);

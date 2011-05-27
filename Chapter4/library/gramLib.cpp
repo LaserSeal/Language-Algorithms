@@ -6,11 +6,13 @@
 //##########################################
 #include "gramLib.h"
 #include "gramIO.h"
+#include "lib.h"
 #include <vector>
 
 
 using namespace std;
 
+/*
 // Set Functions ------- Member, Union, Intersection, Difference
 bool member(set<char*> mySet, char* data){
 
@@ -79,27 +81,6 @@ void diffSet(set<char*>& setA, set<char*> setB){
 
 
 
-
-
-char* insertVariable( std::set<char*>& variables, char* production){
-
-
-	char* newVar = new char[MAX_VAR_SIZE+1];
-	int varSize = isVariable(production);
-	strncpy(newVar, production, varSize);
-	*(newVar+varSize) = '\0';	
-	if( !(member(variables, newVar)) ){
-		variables.insert(newVar);
-	}
-	else{
-		delete(newVar);
-		return NULL;
-	}
-	
-	return newVar;
-}
-
-
 // Takes a set and checks if the new data is already in the set
 void insertIntoSet(std::set<char*>& set, char* data){
 	
@@ -110,19 +91,6 @@ void insertIntoSet(std::set<char*>& set, char* data){
 		delete(data);
 	}
 
-}
-
-
-char* newProduction(char* variable, char* rule){
-
-	char* newPro = new char[MAX_RULE_SIZE+1];
-
-	strncpy(newPro, variable, strnlen(variable, MAX_VAR_SIZE)+1);
-	
-	strncat(newPro, " ", 1);
-	strncat(newPro, rule, strnlen(rule, MAX_RULE_SIZE));
-	
-	return newPro;
 }
 
 
@@ -143,6 +111,83 @@ bool compareSets( set<char*> setA, set<char*> setB ){
         }
         return false;
 }
+
+
+void displaySet(set<char*> setA){
+
+	set<char*>::iterator it;
+	
+	for( it = setA.begin(); it != setA.end(); it++){
+		cout << *it << endl;
+	}
+
+}
+
+bool isLowChar( char letter ){
+	int ascii = (int)letter;
+	if( ascii >= 97 && ascii <= 122)
+		return true;
+	return false;
+}
+
+// return the size of the term or 0 if its false
+int isTerminal(char* term){
+        //checks if the first char is a letter
+        int termSize = 0;
+        if( isLowChar( *term++ ) || strcmp(term, NULL_CHAR) == 0 ){
+                termSize++;
+                while( isDigit( *term++ ) ){
+                        termSize++;
+                }
+                return termSize;
+        }
+        return termSize;
+}
+
+bool isDigit( char digit ){
+	int ascii = (int)digit;
+	if( ascii >= 48 && ascii <= 57 )
+		return true;
+	return false;
+}
+
+
+*/
+
+char* insertVariable( std::set<char*>& variables, char* production){
+
+
+	char* newVar = new char[MAX_VAR_SIZE+1];
+	int varSize = isVariable(production);
+	strncpy(newVar, production, varSize);
+	*(newVar+varSize) = '\0';	
+	if( !(member(variables, newVar)) ){
+		variables.insert(newVar);
+	}
+	else{
+		delete(newVar);
+		return NULL;
+	}
+	
+	return newVar;
+}
+
+
+
+
+char* newProduction(char* variable, char* rule){
+
+	char* newPro = new char[MAX_RULE_SIZE+1];
+
+	strncpy(newPro, variable, strnlen(variable, MAX_VAR_SIZE)+1);
+	
+	strncat(newPro, " ", 1);
+	strncat(newPro, rule, strnlen(rule, MAX_RULE_SIZE));
+	
+	return newPro;
+}
+
+
 
 
 void displayGrammer(set<char*>* grammer){
@@ -168,15 +213,6 @@ void displayGrammer(set<char*>* grammer){
 
 }
 	
-void displaySet(set<char*> setA){
-
-	set<char*>::iterator it;
-	
-	for( it = setA.begin(); it != setA.end(); it++){
-		cout << *it << endl;
-	}
-
-}
 
 
 // Takes the variable from a prodcution and makes a new char*
@@ -227,12 +263,6 @@ int variableLen( char* rule ){
 	return size;
 }
 
-bool isDigit( char digit ){
-	int ascii = (int)digit;
-	if( ascii >= 48 && ascii <= 57 )
-		return true;
-	return false;
-}
 
 bool isUppChar( char letter ){
 	int ascii = (int)letter;
@@ -241,26 +271,6 @@ bool isUppChar( char letter ){
 	return false;
 }
 
-bool isLowChar( char letter ){
-	int ascii = (int)letter;
-	if( ascii >= 97 && ascii <= 122)
-		return true;
-	return false;
-}
-
-// return the size of the term or 0 if its false
-int isTerminal(char* term){
-        //checks if the first char is a letter
-        int termSize = 0;
-        if( isLowChar( *term++ ) || strcmp(term, NULL_CHAR) == 0 ){
-                termSize++;
-                while( isDigit( *term++ ) ){
-                        termSize++;
-                }
-                return termSize;
-        }
-        return termSize;
-}
 
 
 // returns the size of the var in char*.

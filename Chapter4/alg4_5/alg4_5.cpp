@@ -1,5 +1,6 @@
 #include "gramIO.h"
 #include "gramLib.h"
+#include "lib.h"
 #include "../main/chap4.h"
 
 void convertToChomsky( std::set<char*>* grammer, std::set<char*>* newGrammer);

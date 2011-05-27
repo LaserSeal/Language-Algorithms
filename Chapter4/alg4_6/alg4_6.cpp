@@ -1,5 +1,6 @@
 #include "gramLib.h"
 #include "gramIO.h"
+#include "lib.h"
 #include "latex.h"
 
 #define MAX_NUM_VAR 8

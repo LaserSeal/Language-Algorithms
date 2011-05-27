@@ -1,1 +1,1 @@
-../library/lib.h
+../../Main/library/lib.h

@@ -1,5 +1,6 @@
 #include "gramIO.h"
 #include "gramLib.h"
+#include "lib.h"
 #include "../main/chap4.h"
 #include <map>
 #include <stdlib.h>
@@ -25,7 +26,6 @@ void alg4_8(char* pathIn, char* pathOut){
 	alg4_7(pathIn, pathIn);
 
 	parseGrammer(pathIn, grammer);		
-
 
 	convertToGBN(grammer);	
 	

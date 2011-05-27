@@ -6,11 +6,13 @@
 //##########################################
 #include "finLib.h"
 #include "finStateIO.h"
+#include "lib.h"
 #include <vector>
 
 
 using namespace std;
 
+/*
 // Set Functions ------- Member, Union, Intersection, Difference
 bool member(set<char*> mySet, char* data){
 
@@ -133,12 +135,6 @@ bool isDigit( char digit ){
 	return false;
 }
 
-bool isUppChar( char letter ){
-	int ascii = (int)letter;
-	if( ascii >= 65 && ascii <= 90 )
-		return true;
-	return false;
-}
 
 bool isLowChar( char letter ){
 	int ascii = (int)letter;
@@ -147,18 +143,6 @@ bool isLowChar( char letter ){
 	return false;
 }
 
-
-int isState(char* state){
-	int stateSize = 0;
-	if( *state++ == 'q' || strncmp(state, EMPTY_SET, 1) == 0 ){
-		stateSize++;
-		while( isDigit( *state++ )){ //|| strncmp(state, EMPTY_SET, 1) == 0 ){
-			stateSize++;
-		}
-	}
-
-	return stateSize;
-}
 
 
 // return the size of the term or 0 if its false
@@ -174,7 +158,19 @@ int isTerminal(char* term){
         }
         return termSize;
 }
+*/
 
+int isState(char* state){
+	int stateSize = 0;
+	if( *state++ == 'q' || strncmp(state, EMPTY_SET, 1) == 0 ){
+		stateSize++;
+		while( isDigit( *state++ )){ //|| strncmp(state, EMPTY_SET, 1) == 0 ){
+			stateSize++;
+		}
+	}
+
+	return stateSize;
+}
 
 // d(state1, letter) = state2
 char* newTransition(char* state1, char* letter, char* state2){
@@ -295,24 +291,6 @@ set<char*> parseStateString(char* states){
 	return setStates;
 }
 
-
-void freeSet(set<char*>& setA){
-
-	set<char*>::iterator it;
-
-	for( it = setA.begin(); it != setA.end(); ++it){
-		delete(*it);
-	}
-}
-
-void freeVector(vector<char*>& vec){
-
-	vector<char*>::iterator it;
-
-	for( it = vec.begin(); it != vec.end(); ++it){
-		delete(*it);
-	}
-}
 
 
 

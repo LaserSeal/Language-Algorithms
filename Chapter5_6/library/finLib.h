@@ -13,7 +13,7 @@
 #define NULL_CHAR "$"
 
 typedef std::vector<std::vector<std::set<int*> > > setMatrix;
-
+/*
 #ifndef __LIB_H
 #define __LIB_H
 
@@ -32,20 +32,19 @@ bool compareSets( std::set<char*> setA, std::set<char*> setB );
 void displaySet(std::set<char*> setA);
 
 bool isDigit( char digit );
-bool isCapChar( char letter );
+
 bool isLowChar( char letter );
 
 // Both of these return 0 if no terminal or var is found
 // otherwise it returns the size of the term or var in the 
 // char*
 
-/*NULL_CHAR IS NOT A TERMINAL, NEED TO FIX THIS */
 int isTerminal( char* term );
 int isVariable( char* var );
 
 #endif
 
-
+*/
 
 
 int isState(char* state);

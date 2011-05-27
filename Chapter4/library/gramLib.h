@@ -1,7 +1,7 @@
 //##########################################
 // -Author: Brandon Schaefer
 // -Created: 5/08/11
-// -File Name: lib.h 
+// -File Name: gramLib.h 
 //##########################################
 #include <set>
 #include <iostream>
@@ -14,6 +14,7 @@ typedef std::vector<std::vector<std::set<char*> > > setMatrix;
 
 #define NULL_CHAR "$"
 
+/*
 #ifndef __LIB_H
 #define __LIB_H
 
@@ -38,11 +39,14 @@ bool isLowChar( char letter );
 // otherwise it returns the size of the term or var in the 
 // char*
 
-/*NULL_CHAR IS NOT A TERMINAL, NEED TO FIX THIS */
+NULL_CHAR IS NOT A TERMINAL, NEED TO FIX THIS 
 int isTerminal( char* term );
-int isVariable( char* var );
-#endif
 
+
+*/
+
+
+int isVariable( char* var );
 
 
 char* newProduction(char* variable, char* rule);

@@ -1,5 +1,6 @@
 #include "finStateIO.h"
 #include "finLib.h"
+#include "lib.h"
 
 /*
 M = {Q, E, D, q0, F}
@@ -24,7 +25,7 @@ F{ q1 }
 */
 
 void outputFiniteState( char* outPath, std::set<char*>* finitesState );
-void sendStream(char* path, char* outputStream);
+void sendOutputStream(char* path, char* outputStream);
 
 void parseFiniteState(char* path, std::set<char*>* finiteState);
 void parseLine(char* line, std::set<char*>* finiteState);
@@ -34,7 +35,7 @@ void getAlphabet(char* line, std::set<char*>& alphabet);
 bool getTransitions(char* line, std::set<char*>& transitions);
 void getFinalStates(char* line, std::set<char*>& final);
 
-int readFile(char* path, char* file);
+int readInput(char* path, char* file);
 
 
 
@@ -77,11 +78,11 @@ void outputFiniteState( char* outPath, set<char*>* finiteState){
 	
 	strncat(outStream, "}\n", 2);
 
-	sendStream(outPath, outStream);
+	sendOutputStream(outPath, outStream);
 }
 
 
-void sendStream( char* path, char* outputStream ){
+void sendOutputStream( char* path, char* outputStream ){
 
     int size = strlen(outputStream);
 
@@ -104,7 +105,7 @@ void parseFiniteState(char* path, set<char*>* finiteState){
 	char file[MAX_FILE_SIZE];
 	char* line; 
 
-	readFile(path, file);
+	readInput(path, file);
 
 	line = strtok_r(file, "\n", &p);
 
@@ -210,7 +211,7 @@ void getFinalStates(char* line, std::set<char*>& final){
 	}
 }
 
-int readFile(char* path, char* file){
+int readInput(char* path, char* file){
 
 	int length;
 	ifstream is;

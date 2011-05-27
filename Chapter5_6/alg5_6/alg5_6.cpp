@@ -1,5 +1,6 @@
 #include "finStateIO.h"
 #include "finLib.h"
+#include "lib.h"
 
 void alg5_6(char* pathIn, char* pathOut);
 void removeNonDeterminism(std::set<char*>* finiteState);
@@ -39,10 +40,10 @@ void alg5_6(char* pathIn, char* pathOut){
 	outputFiniteState(pathOut, finiteState);
 
 
-	freeSet(finiteState[0]);
-	freeSet(finiteState[1]);
-	freeSet(finiteState[2]);
-	freeSet(finiteState[3]);
+	freeCont(finiteState[0]);
+	freeCont(finiteState[1]);
+	freeCont(finiteState[2]);
+	freeCont(finiteState[3]);
 }
 
 
@@ -88,7 +89,7 @@ void removeNonDeterminism(std::set<char*>* finiteState){
 				insertIntoSet(Q, Y);
 				insertIntoSet(tmpSet, newTran);
 			}
-			freeSet(statesX);
+			freeCont(statesX);
 			++X;	
 		}
 		else{
@@ -97,7 +98,7 @@ void removeNonDeterminism(std::set<char*>* finiteState){
 		
 	}while(!done);
 
-	freeSet(finiteState[TRANSITIONS]);
+	freeCont(finiteState[TRANSITIONS]);
 	finiteState[TRANSITIONS].clear();
 	unionSet(finiteState[TRANSITIONS], tmpSet);
 
@@ -118,10 +119,10 @@ void finalStates(set<char*> Q, set<char*>* finiteState){
 				insertIntoSet(newFinalStates, *itState);
 			}
 		}
-		freeSet(splitState);
+		freeCont(splitState);
 	}
 
-	freeSet(finiteState[FINAL]);
+	freeCont(finiteState[FINAL]);
 	finiteState[FINAL].clear();
 	unionSet(finiteState[FINAL], newFinalStates);
 }
@@ -158,7 +159,7 @@ char* getY( char* letter, set<char*> statesX, set<char*>* finiteState){
 		unionSet(Y, inputTransitionFunction(*itState, letter, finiteState));
 	}	
 	strY = convertSetToString(Y);
-	freeSet(Y);
+	freeCont(Y);
 	return strY;
 }
 // Returns true if it is not a DFA yet, hence that there is a state
@@ -217,7 +218,7 @@ set<char*> inputTransitionFunction(char* state, char* letter, set<char*>* finite
 		
 	unionSet(reachable, canReachLetter(letter, lambdaSet, finiteState[TRANSITIONS]));
 
-	freeSet(lambdaSet);	
+	freeCont(lambdaSet);	
 
 	return reachable;
 }

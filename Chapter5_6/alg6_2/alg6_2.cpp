@@ -1,5 +1,6 @@
 #include "finStateIO.h"
 #include "finLib.h"
+#include "lib.h"
 #include <stdlib.h>
 
 void convertFAtoRE(std::set<char*>* finiteState);
@@ -39,9 +40,9 @@ void convertFAtoRE(set<char*>* finiteState){
 	char* wji, *wik, *wii, *newTran, *tmp;
 	
 	
-	wji = EMPTY_SET;
-	wik = EMPTY_SET;
-	wii = EMPTY_SET;
+//	wji = (char*)EMPTY_SET;
+//	wik = EMPTY_SET;
+//	wii = EMPTY_SET;
 	
 	if( finiteState[FINAL].size() > 1 ){
 		makeOneFinalState(finiteState);
@@ -111,7 +112,7 @@ void makeOneFinalState(set<char*>* finiteState){
 	strncpy(newFinal, "q000", 5);	
 
 	for( itFinal = finiteState[FINAL].begin(); itFinal != finiteState[FINAL].end(); ++itFinal){
-		newTran = newTransition(*itFinal, NULL_CHAR, newFinal);	
+		newTran = newTransition(*itFinal, (char*)NULL_CHAR, newFinal);	
 		finiteState[TRANSITIONS].insert(newTran);
 	}
 
@@ -140,7 +141,7 @@ char* hasTransition(char* qi, char* qj, set<char*> transitions){
 		}
 	}
 	
-	return EMPTY_SET;	
+	return (char*)EMPTY_SET;	
 }
 
 
