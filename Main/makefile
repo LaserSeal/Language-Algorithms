@@ -1,10 +1,16 @@
 OBJS = $(MAIN).o alg4_1.o alg4_2.o alg4_3.o alg4_4_2.o alg4_4_4.o alg4_5.o alg4_6.o alg4_7.o alg4_8.o latexTable.o gramLib.o grammerIO.o alg5_6.o alg5_7.o alg6_2.o lib.o finLib.o finiteStateIO.o
 MAIN = main
+NAME = shell
 
 all: clean compile
 
+again: rmMain $(MAIN).o reMake
+
 compile: $(OBJS)
-	g++ $(OBJS) -o algorithms
+	g++ $(OBJS) -o $(NAME)
+
+reMake:
+	g++ *.o -o $(NAME)
 
 $(MAIN).o:
 	g++ -c $(MAIN).cpp
@@ -64,4 +70,7 @@ finiteStateIO.o:
 	g++ -c ../Chapter5_6/library/finiteStateIO.cpp
 
 clean:
-	rm -rf *o compile
+	rm -rf *o
+
+rmMain:
+	rm -rf $(MAIN).o
