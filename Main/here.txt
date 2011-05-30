@@ -1,5 +1,0 @@
-S0 -> S
-S -> aS | AB | AC
-A -> aA | $
-B -> bB | bS
-C -> cC | $
