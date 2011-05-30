@@ -4,8 +4,12 @@
 
 Download, then navigate to the main folder by:
 
-    cd Chapter4/main/
+    cd Main/
    
 Then you can either edit the main.cpp file to your liking or compile the current one:
 
-    make new
+    make
+
+Then to run:
+
+    ./algorithms
