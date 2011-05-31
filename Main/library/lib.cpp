@@ -5,6 +5,8 @@
 // -File Name: lib.cpp 
 //##########################################
 #include "lib.h"
+#include "gramIO.h"
+
 
 using namespace std;
 
@@ -152,4 +154,12 @@ int isTerminal(char* term){
                 }
         }
         return termSize;
+}
+
+void printTextFile(char* path){
+	// *4 because GNF worst case produces 4n more rules
+	char file[MAX_FILE_SIZE*4];	
+
+	readFile(path, file);
+	cout << file << endl;
 }

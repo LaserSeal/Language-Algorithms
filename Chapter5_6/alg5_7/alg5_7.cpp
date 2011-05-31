@@ -141,7 +141,7 @@ void determinEquialentStates(set<char*>* finiteState, char* pathOut){
 
 	outputD(pathOut, D, stateSize);
 	//displayD(D, stateSize);
-	displayS(S, stateSize);
+	//displayS(S, stateSize);
 
 	for( i = 0; i < stateSize; i++){	
 		delete(D[i]);

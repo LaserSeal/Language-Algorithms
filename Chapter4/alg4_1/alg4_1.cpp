@@ -3,8 +3,6 @@
 #include "lib.h"
 #include "../main/chap4.h"
 
-
-
 void rmRecursiveStart(std::set<char*>* grammer);
 void changeGrammer(std::set<char*>* grammer);
 char* generateNewStart(std::set<char*>* grammer);

@@ -1,3 +1,6 @@
-A -> aZ | a | bA | cA | bAZ | cAZ
-Z -> bZ | cZ | b | c
-B -> b | c
+S -> $ | aB | aZ1B | aZB | aZZ1B | cBB | cBZ1B | cBZB | cBZZ1B
+C -> c | aC | aZ1C | aZC | aZZ1C | cBC | cBZ1C | cBZC | cBZZ1C
+Z -> bZ | aBZ | aZ1BZ | aZBZ | aZZ1BZ | cBBZ | cBZ1BZ | cBZBZ | cBZZ1BZ | b | aB | aZ1B | aZB | aZZ1B | cBB | cBZ1B | cBZB | cBZZ1B
+A -> a | aZ1 | aZ | aZZ1 | cB | cBZ1 | cBZ | cBZZ1
+B -> b | aB | aZ1B | aZB | aZZ1B | cBB | cBZ1B | cBZB | cBZZ1B
+Z1 -> cBZ1 | aCBZ1 | aZ1CBZ1 | aZCBZ1 | aZZ1CBZ1 | cBCBZ1 | cBZ1CBZ1 | cBZCBZ1 | cBZZ1CBZ1 | cB | aCB | aZ1CB | aZCB | aZZ1CB | cBCB | cBZ1CB | cBZCB | cBZZ1CB | cBZZ1 | aCBZZ1 | aZ1CBZZ1 | aZCBZZ1 | aZZ1CBZZ1 | cBCBZZ1 | cBZ1CBZZ1 | cBZCBZZ1 | cBZZ1CBZZ1 | cBZ | aCBZ | aZ1CBZ | aZCBZ | aZZ1CBZ | cBCBZ | cBZ1CBZ | cBZCBZ | cBZZ1CBZ

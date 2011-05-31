@@ -68,9 +68,6 @@ void alg4_7_GNF(set<char*>* grammer, char* var){
 
 	unionSet(grammer[RULES], newGrammer[RULES]);
 	unionSet(grammer[VARIABLES], newGrammer[VARIABLES]);
-
-	displaySet(grammer[RULES]);
-
 }
 
 /* Removal of Direct Left Recusion

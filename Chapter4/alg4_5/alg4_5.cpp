@@ -40,10 +40,7 @@ void alg4_5(char* pathIn, char* pathOut){
 	set<char*> grammer[4];
 	parseGrammer(pathIn, grammer);
 	
-	convertToChomsky(grammer, newGrammer);	
-
-	displayGrammer(newGrammer);	
-	
+	convertToChomsky(grammer, newGrammer);		
 
 	outputGrammer(pathOut, newGrammer);
 }
@@ -113,7 +110,6 @@ void removeTerminals(set<char*>* grammer, set<char*>* newGrammer){
 			// FAILS IF A -> a
 			if( isTerminal(proVec[i]) && proVec.size() > 2){
 				newVar = generateNewVar(proVec[i], newGrammer[VARIABLES], newGrammer[RULES]);	
-				cout << newVar << " | " << *itPro << endl;
 				addNewRule(newVar, proVec[i], newGrammer[RULES]);
 				strncat(tmpRule, newVar, MAX_VAR_SIZE);	
 				insertIntoSet(newGrammer[VARIABLES], newVar);	
@@ -161,9 +157,6 @@ void splitNewRules(set<char*>* newGrammer){
 	diffSet(tmpRules, newGrammer[RULES]);
 	// Unions the intersection (tmpRules and newGrammer) have in common with the difference of (tmpRules and newGrammer)
 	unionSet(newGrammer[RULES], tmpRules);
-	displaySet(tmpRules);
-
-
 }
 
 void produceNewRules(vector<char*> splitRule, set<char*>& rules, set<char*>& variables){
@@ -187,7 +180,6 @@ void produceNewRules(vector<char*> splitRule, set<char*>& rules, set<char*>& var
 				splitRule.pop_back();
 				splitRule.push_back(newVar);
 	
-				cout << newRule << endl;
 				rules.insert(newRule);
 				variables.insert(newVar);
 			}
@@ -287,7 +279,6 @@ bool singleRule(set<char*> rules, char* production){
 
 	
 	for( itRule = rules.begin(); itRule != rules.end(); itRule++){
-		cout << tmpVar << " | "<<*itRule << endl;
 		if( lessOne > 1 ){
 			return false;
 		}

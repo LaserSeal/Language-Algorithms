@@ -93,3 +93,6 @@ inline void freeCont(T& cont){
 }
 
 #endif
+
+
+void freeGrammer(std::set<char*>* grammer);

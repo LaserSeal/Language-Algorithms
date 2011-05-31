@@ -19,6 +19,8 @@ void unionSet(std::set<char*>& , std::set<char*> );
 void interSet(std::set<char*>& , std::set<char*> );
 void diffSet(std::set<char*>& , std::set<char*> );
 
+void printTextFile(char* path);
+
 /*
 readFile
 

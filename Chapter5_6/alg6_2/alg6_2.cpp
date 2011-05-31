@@ -50,7 +50,6 @@ void convertFAtoRE(set<char*>* finiteState){
 
 	for( i = finiteState[STATES].begin(); i != finiteState[STATES].end(); ++i){
 		if( strncmp( "q0", *i, 2) != 0 && !member(finiteState[FINAL], *i)){
-			cout << *i << endl;
 			for( j = finiteState[STATES].begin(); j != finiteState[STATES].end(); ++j){
 				if( j != i && !member(removedStates, *j) ){
 					for( k = finiteState[STATES].begin(); k != finiteState[STATES].end(); ++k){
@@ -90,7 +89,6 @@ void convertFAtoRE(set<char*>* finiteState){
 								delete(wii);
 
 							}						
-							cout << "i: " << *i << " j: " << *j << " k: " << *k << endl;
 						}
 					}
 				}

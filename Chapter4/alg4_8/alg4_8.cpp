@@ -32,7 +32,7 @@ void alg4_8(char* pathIn, char* pathOut){
 	set<char*>::iterator it, it2;
 	int tmp = 0;
 	
-
+/*
 	for( it = grammer[VARIABLES].begin(); it != grammer[VARIABLES].end(); ++it){
 		for( it2 = grammer[RULES].begin(); it2 != grammer[RULES].end(); ++it2){
 			if( varEqual(*it, *it2) ){
@@ -41,7 +41,7 @@ void alg4_8(char* pathIn, char* pathOut){
 		}
 		cout << "Var: " << *it << " has " << tmp << " rules" << endl;
 		tmp = 0;
-	}
+	}*/
 	
 
 	outputGrammer(pathOut, grammer);

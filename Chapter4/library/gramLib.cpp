@@ -348,4 +348,3 @@ void freeSet(set<char*>& setA){
 		delete(*it);
 	}
 }
-

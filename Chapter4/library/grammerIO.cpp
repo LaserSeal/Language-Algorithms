@@ -57,6 +57,7 @@ int readFile(char* path, char* file){
 	}
 
 	is.close();
+	*(file+length) = '\0';
 	return length;
 }
 
