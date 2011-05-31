@@ -33,17 +33,17 @@ char helpComm[] = "\
 :cat <FILE> - displays a file\n\
 ----------------------------------------\n\
 These are all the algorithms, anything in <ARGUMENT> brackets are the arguments\n\
-alg4_1 <grammar pathIn> <grammer pathOut>\t--remove recurisve start symbol\t\t-Page 105\n\
-alg4_2 <grammar pathIn> <grammer pathOut>\t--remove lamda rules\t\t\t-Page 108\n\
+alg4_1 <grammar pathIn> <grammer pathOut>\t--remove recursive start symbol\t\t-Page 105\n\
+alg4_2 <grammar pathIn> <grammer pathOut>\t--remove lambda rules\t\t\t-Page 108\n\
 alg4_3 <grammar pathIn> <grammer pathOut>\t--remove chain rules\t\t\t-Page 114\n\
 alg4_4_2 <grammar pathIn> <grammer pathOut>\t--generate rules that derive terminals\t-Page 117\n\
 alg4_4_4 <grammar pathIn> <grammer pathOut>\t--remove un-reachable rules\t\t-Page 119\n\
 alg4_5 <grammar pathIn> <grammer pathOut>\t--convert to Chomsky Normal Form\t-Page 122\n\
 alg4_6 <grammar pathIn> <pdf pathOut> <string>\t--CYK algorithm\t\t\t\t-Page 126\n\
-alg4_7 <grammar pathIn> <grammer pathOut>\t--removale of direct left recursion\t-Page 129\n\
+alg4_7 <grammar pathIn> <grammer pathOut>\t--removable of direct left recursion\t-Page 129\n\
 alg4_8 <grammar pathIn> <grammer pathOut>\t--convert to Greibach Normal Form\t-Page 132\n\
 alg5_6 <FA pathIn> <FA pathOut>\t\t\t--remove non-determinism\t\t-Page 172\n\
-alg5_7 <FA pathIn> <FA pathOut>\t\t\t--determin equivalent states\t\t-Page 179\n\
+alg5_7 <FA pathIn> <FA pathOut>\t\t\t--determine equivalent states\t\t-Page 179\n\
 alg6_2 <FA pathIn> <FA pathOut>\t\t\t--finite state to regular expression\t-Page 194\n";
 
 using namespace std;

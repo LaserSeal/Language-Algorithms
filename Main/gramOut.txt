@@ -1,2 +1,4 @@
-S -> S | a
-A -> A
+S -> ACA | AC | AA | CA | $ | cC | c | aAa | aa | bB | b
+A -> aAa | aa | bB | b | cC | c
+B -> bB | b
+C -> cC | c
